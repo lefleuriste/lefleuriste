@@ -148,13 +148,16 @@ class Categories_Controller extends Base_Controller {
 		}
 
 		//on vérifie si les catégories supprimés correspondent au numéro du compteur
-		if(count($checked) == $compt){
+		if(count($checked) == $compt and $compt != 0){
 			Session::flash('status_success','Toutes les catégories ont été supprimées avec succès.');
+		
+		}elseif(count($checked) == $compt){
+			Session::flash('status_error','Vous n\'avez pas sélectionné de catégories à supprimer. Veuillez réessayer.');
 			
 		}else{
-			Session::flash('status_error','Un problème est survenu lors de la suppression des catégories. Veuillez réésayer.');
-			
+			Session::flash('status_error','Un problème est survenu lors de la suppression des catégories. Veuillez réessayer.');
 		}
+
 		return Redirect::back();
 	}
 	
