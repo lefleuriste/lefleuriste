@@ -1,0 +1,12 @@
+SetEnv PHP_VER 5_3
+SetEnv REGISTER_GLOBALS 
+SetEnv MAGIC_QUOTES 0
+SetEnv REGISTER_GLOBALS 0
+
+Options +FollowSymLinks
+RewriteEngine on
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteRule . index.php [L]

@@ -1,0 +1,429 @@
+/* GLOBAL STYLES
+    -------------------------------------------------- */
+    /* Padding below the footer and lighter body text */
+
+    body {
+	  /*background-color: #9b8a76;*/
+     background:#fff;
+	 font-family: 'PT Sans', sans-serif;
+	 font-size:16px;
+     
+      /*color: #5a5a5a;*/
+    }
+	
+	
+	#header{
+		min-height:282px;
+		background-image:url(../img/header2.png);
+		background-repeat:repeat-x;
+		margin-bottom:30px;
+		
+	}
+	
+
+	h2,h3 {
+	font-family: 'Kreon', serif;
+	color: #ba5581;
+	}
+	
+	h2 {
+	margin-bottom: 15px;
+	letter-spacing: 1px;
+	font-style: italic;
+	}
+	
+	h4{
+	text-align: center;
+	}
+
+	/* Customize - Bloc contact */
+	.info {
+	border: 2px #ba5581 solid;
+	border-radius: 10px;
+	padding: 15px;
+	text-align: center;
+	margin-top: 20px;
+	}
+	
+	/*Customize - Ligne sous titre */
+	.sexy_line {
+	margin: 25px 0;
+	height: 1px;
+	border: 0;
+	background: black;
+	background: -webkit-gradient(linear, 0 0, 100% 0, from(#F2F2F2), to(#F2F2F2), color-stop(50%, #D7D7D7));
+	}
+	
+    /* CUSTOMIZE THE NAVBAR
+    -------------------------------------------------- */
+
+    /* Special class on .container surrounding .navbar, used for positioning it into place. */
+	
+		
+	
+    .navbar {
+		font-size:20px;
+		position:fixed;
+		top:0;
+		right:0;
+		left:0;
+		z-index:1000;
+	 
+     /* margin-bottom: -90px; *//* Negative margin to pull up carousel. 90px is roughly margins and height of navbar. */
+    }
+    .navbar-wrapper .navbar .btn-group{
+		margin-top: 10px;
+    }
+
+    /* Remove border and change up box shadow for more contrast */
+    .navbar .navbar-inner {
+      border: 0;
+      -webkit-box-shadow: 0 2px 10px rgba(0,0,0,.25);
+      -moz-box-shadow: 0 2px 10px rgba(0,0,0,.25);
+      box-shadow: 0 2px 10px rgba(0,0,0,.25);
+			  
+	
+    }
+
+
+    /* Navbar links: increase padding for taller navbar */
+    .navbar .nav > li > a {
+      padding: 15px 20px;
+	  color:#ba5581;
+	  
+    }
+	
+	.navbar .nav  {
+     float:right;
+	  
+    }
+
+    /* Offset the responsive button for proper vertical alignment */
+    .navbar .btn-navbar {
+      margin-top: 10px;
+    }
+
+    /* Couleur du menu déroulant Dropdown */
+    .dropdown-menu li > a:hover,
+	.dropdown-menu li > a:focus,
+	.dropdown-submenu:hover > a {
+ 		 color: #ffffff;
+		  text-decoration: none;
+		  background-color: #ba5581;		  
+		
+	}
+	
+	
+	/* CUSTOMIZE THE BANNIERE */
+	
+	.banniere {
+	  position: relative;
+            
+      
+	  height: 400px;      
+	  margin: 0 auto;
+	  background: url('../img/banniere2.png') no-repeat;
+	  border: 0;
+	  
+      
+	}
+	
+	.container{
+	   width:974px;
+	   z-index:2;
+	   
+	   
+	   
+	}
+	.hero-unit{
+	    background:#fff;
+		border: none;
+		/*-webkit-box-shadow: 0 2px 10px rgba(0,0,0,.25);
+        -moz-box-shadow: 0 2px 10px rgba(0,0,0,.25);
+        box-shadow: 0 2px 10px rgba(0,0,0,.25);*/
+		
+	
+	}
+	
+	.presentation {
+	font-size:15px;
+	text-align: justify;
+	}
+	
+	/* CUSTOMIZE THE FORMULAIRE*/
+	
+	.form-horizontal{
+	  
+	  /*width:400px;*/
+	  /*background-color:#f3ebf3;*/
+	  padding-top:30px;
+	  
+	}
+	  
+	  .form-actions{
+		background-color:#fff;
+		border:0;
+	  }
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	
+	/*CUSTOMIZE THE FOOTER */
+	
+	#footer {
+		background-image: url(../img/footer4.png);
+  		background-repeat: repeat-x;
+		position: absolute;
+		width: 100%;
+		left: 0;
+		
+		min-height: 288px;
+		margin-top: 72px;
+		z-index: -1;
+		color:#fff;
+		
+	}
+	
+	.muted_credit {
+		margin-top:10px;
+		margin-bottom:40px;
+	}
+	
+	
+	
+	
+	/*::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+	
+
+
+
+/****  FOOTER  ****/
+
+
+#footer_content {
+  background-image: url(../images/footer_upper_background.png);
+  background-repeat: no-repeat;
+  margin: 0 auto;
+  margin-top: -8px;
+  width: 975px;
+}
+
+.links_footer {
+ display: inline-block;
+ vertical-align: top; 
+ border-right: 1px solid #d9708f;
+ height: 122px;
+ line-height: 22px;
+ padding-top: 10px !important;
+}
+
+#footer_partner {
+	padding-top: 27px;
+}
+
+#footer_partner > div > div {
+  display: inline-block;
+  vertical-align: top;
+  font-family: 'Trocchi', sans-serif;
+  color: #fff;
+  font-size: 14px;
+  text-transform: uppercase;
+  line-height: 48px;
+  margin-right: 4px;
+}
+
+
+
+#footer_partner #paiement {
+	margin-right: 14px;  
+}
+
+#footer_partner #paiementinfo {
+  margin-left: 14px;
+}
+
+.links_footer a{
+  font-family: 'century-gothic', sans-serif;
+  color: #fff;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+#links_footer1 a{
+  font-family: 'century-gothic-bold';
+}
+
+#links_footer3 li:last-child  a{
+  font-family: 'century-gothic-bold', sans-serif;
+}
+
+#links_footer1 {
+ padding-right: 22px; 
+}
+
+#links_footer2 {
+ padding: 0px 33px; 
+}
+
+#links_footer3 {
+ padding: 0px 174px 0px 32px; 
+}
+
+ul{
+  list-style: none; 
+}
+
+#links_footer_wrapper {
+ width: 950px;
+ margin-top: 20px;
+}
+
+#footer_partner span{
+	font-family: 'century-gothic-bold';
+  font-weight: bold;
+  color: #fff;
+  font-size: 15px;
+  text-transform: uppercase;
+  margin-left: 98px;
+}
+
+#footer_right{
+  float: right;
+  margin-top: -135px;
+}
+
+/*//////////////////////////////////////
+			Tableau
+///////////////////////////////////////*/
+
+a.icon-1	{
+	background: url(../img/table_icon_1.gif) no-repeat;
+	display: block;
+	float: left;
+	height: 24px;
+	margin: 0 8px 0 0;
+	width: 24px;
+	}
+a:hover.icon-1	{
+	background: url(../img/table_icon_1.gif) 0 -24px;
+	}
+	
+#tooltip	{
+	background-color: #8c8c8c;
+	border: 1px solid #767676;
+	color: #fff;
+	font-family: Arial;
+	font-size: 10px;
+	font-weight: normal;
+	opacity: 0.85;
+	padding: 0 5px;
+	position: absolute;
+	text-align: left;
+	z-index: 3000;
+	}
+#tooltip h6, #tooltip div	{
+	font-family: Arial;
+	font-size: 11px;
+	line-height: 20px;
+	margin: 0;
+	}
+#product-table	{
+	margin-bottom: 20px;
+	}
+#product-table	td a	{
+	color: #393939;
+	}
+#product-table	td a:hover	{
+	text-decoration: underline;
+	}
+#product-table	th	{
+	height: 50px;
+	text-align: left;
+	}
+#product-table	.minwidth-1	{
+	min-width: 110px;
+	}
+#product-table td	{
+	border: 1px solid #d2d2d2;
+	padding: 10px 0 10px 10px;
+	}
+#product-table tr:nth-child(2n+1)	{
+	background: #ececec;
+	}
+td.options-width	{
+	padding: 0 0 0 10px;
+	width: 210px;
+	}
+
+.table-header-check	{
+	background: url(../img/table_header_checkbox.jpg) no-repeat;
+	text-align:center;
+	border: none;
+	min-width: 29px;
+	padding: 0px 0 0 10px;
+	width: 29px;
+	}
+.table-header-options	{
+	background: url(../img/table_header_options.jpg) no-repeat;
+	text-align:center;
+	border: none;
+	min-width: 221px;
+	padding: 0px 0 0 0;
+	width: 221px;
+	}
+.table-header-repeat	{
+	background: url(../img/table_header_repeat.jpg) repeat-x;
+	text-align:center;
+	border: none;
+	font-size: 0px;
+	line-height: 0;
+	padding: 0px 0 0 0;
+	}
+.table-header-options a,
+ .table-header-repeat 	{
+	text-align:center;
+	font-family: Tahoma;
+	font-size: 13px;
+	font-weight: bold;
+	line-height: 14px;
+	margin: 0 0 0 10px;
+	padding: 0 10px 0 0;
+	}
+	
+	
+th.line-left	{
+	border-left: 1px solid #BFBABE;
+	}
+
+
+#toggle-all {
+		display: block;
+		width: 17px;
+		height:17px;
+		cursor: pointer;
+		background: url(../img/checkbox.gif) 0 -17px;
+}
+	
+#toggle-all.toggle-checked {
+		display: block;
+		width: 17px;
+		height:17px;
+		background: url(../img/checkbox.gif) 0 0;
+}
+
+/* STYLED CHECKBOXES AND RADIOS -------------------------------------------- */	
+
+
+
+
+	
+	
+	
+	
+
+
+
