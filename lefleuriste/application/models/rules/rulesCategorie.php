@@ -3,7 +3,7 @@
 class RulesCategorie extends Elegant
 {
 	protected $rules = array(
-			'nomCategorie' => 'required|alpha_num',
-			'image' => 'required|alpha',
+			'Categorie' => 'required',
+			'categorie_id' => 'required',
 		);
 }

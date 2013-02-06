@@ -12,4 +12,12 @@ class Categorie extends Eloquent{
 		return $this->has_many('Categorie');
 	}
 
+        public function parent_categorie(){
+		return $this->belongs_to('Categorie','categorie_id');
+	}
+
+	 public function child_categories()
+            {
+            return $this->has_many('Categorie','categorie_id');
+            }
 }

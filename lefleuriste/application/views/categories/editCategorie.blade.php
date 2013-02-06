@@ -2,12 +2,8 @@
 
 @section('content')
 
-
-
 <div class="row-fluid">
-	
 	<div class="span12">		
-		
 		@if ($categorie!=null)
 			<h2>Modification de la catégorie</h2>
 		@else
@@ -16,36 +12,35 @@
 		
 		{{Form::open('categories/modifierCat','POST',array('class'=>'form-horizontal'))}}
 			@if ($categorie!=null)
-            	{{Form::hidden('idcat',$categorie->id)}}
-                
+            	{{Form::hidden('idcat',$categorie->id)}}   
             @endif
 			
-			<div class="control-group @if ($errors->has('nomCategorie')) error @endif">
+			<!-- Champ Nom Catégorie -->
+			<div class="control-group @if ($errors->has('Categorie')) error @endif">
 				<div class="controls">
-                	{{Form::label('nomCategorie','Nom Catégorie')}}
+                	{{Form::label('Categorie','Nom Catégorie')}}
 					@if ($categorie!=null)
-						{{Form::text('nomCategorie',Input::old('nomCategorie', $categorie->nom_categorie ),array('class'=>"inputError"))}}
-					@else {{Form::text('nomCategorie',Input::old('nomCategorie'),array('class'=>"inputError"))}}
+						{{Form::text('Categorie',Input::old('Categorie', $categorie->nom ),array('class'=>"inputError"))}}
+					@else {{Form::text('Categorie',Input::old('Categorie'),array('class'=>"inputError"))}}
 					@endif
-					@if ($errors->has('nomCategorie'))
-						<span class="help-inline">{{$errors->first('nomCategorie',':message')}}</span>
+					@if ($errors->has('Categorie'))
+						<span class="help-inline">{{$errors->first('Categorie',':message')}}</span>
 					@endif
-				</div>
-			</div>
+				</div><!--/controls-->
+			</div><!--/control-group-->
 			
-			<div class="control-group @if ($errors->has('image')) error @endif">
-				<div class="controls">
-                	{{Form::label('image','Image')}}
-					@if ($categorie!=null)
-						{{Form::text('image',Input::old('image', $categorie->image),array('class'=>"inputError"))}}
-					@else
-					{{Form::text('image',Input::old('image'),array('class'=>"inputError"))}}
-					@endif
-					@if ($errors->has('image'))
-						<span class="help-inline">{{$errors->first('image',':message')}}</span>
-					@endif
-				</div>
-			</div>
+			<div class="control-group @if ($errors->has('categorie_id')) error @endif">
+                            <div class="controls">
+                                {{Form::label('categorie_id','Catégorie mère')}}
+                                @if ($categorie!=null)
+                                    {{Form::select('categorie_id', $cat_option, Input::old('categorie_id' ,$categorie->categorie_id))}}
+                                @else {{Form::select('categorie_id', $cat_option, Input::old('categorie_id'))}}
+                                @endif
+                                @if ($errors->has('categorie_id'))
+                                    <span class="help-inline">{{$errors->first('categorie_id',':message')}}</span>
+                                @endif
+                            </div><!-- /class="controls" -->
+                        </div><!-- /class="control-group -->
 			
 			<div class="form-actions">
 				@if ($categorie!=null)
@@ -54,14 +49,13 @@
 					{{Form::submit( 'Ajouter' , array('class' => 'btn btn-success'))}}
 				@endif
 					{{HTML::link_to_action('categories.categories', 'Annuler', array(), array('class' => 'btn btn-danger'))}}
-			</div>
-		
+			</div><!--/form-actions-->
 		
 		{{Form::token()}}	
 		{{Form::close()}}
 		
-	</div>
-</div>
+	</div> <!--/span12-->
+</div><!--/row-->
 
 @endsection
 
