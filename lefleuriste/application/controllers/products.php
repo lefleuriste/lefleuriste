@@ -121,13 +121,16 @@ class Products_Controller extends Base_Controller {
 		}
 
 		//on vérifie si les produits supprimés correspondent au numéro du compteur
-		if(count($checked) == $compt){
+		if(count($checked) == $compt and $compt != 0){
 			Session::flash('status_success','Tous les produits ont été supprimés avec succès.');
 			
-		}else{
-			Session::flash('status_error','Un problème est survenu lors de la suppression des produits. Veuillez réésayer.');
+		}elseif(count($checked) == $compt){
+			Session::flash('status_error','Vous n\'avez pas sélectionné de produits à supprimer. Veuillez réessayer.');
 			
+		}else{
+			Session::flash('status_error','Un problème est survenu lors de la suppression des produits. Veuillez réessayer.');
 		}
+		
 		return Redirect::back();
 	}
 		
