@@ -12,9 +12,11 @@
         
         <input type="submit" value="Supprimer" class="btn btn-danger" onclick="return confirm('Etes-vous sûr de vouloir supprimer ces catégories ?');">
        		
-	
+
 	<!-- Affichage des catégories - tableau -->
 	@if($categories)
+		<!-- Pagination -->
+		{{$categories->links()}}
 		<table border="0" width="100%" cellpadding="0" cellspacing="0" id="product-table">
 				<tr>
 					<th class="table-header-check"><a id="toggle-all" ></a> </th>
@@ -22,7 +24,7 @@
 					<th class="table-header-repeat line-left">Catégorie mère</th>
 					<th class="table-header-repeat line-left">Option</th>
 				</tr>
-				@foreach($categories as $c)
+				@foreach($categories->results as $c)
 				<tr>					
 					<td>{{Form::checkbox('select[]',$c->id)}}</td>
 					<td>{{$c->nomc}}</td>
@@ -38,7 +40,11 @@
 			
 			{{Form::token()}}
 			{{Form::close()}}
-	
+
+		<!-- Pagination -->
+		{{$categories->links()}}
+	@else
+		<h2>Aucune catégorie</h2>
 	@endif
 	
 </div><!--/row-->

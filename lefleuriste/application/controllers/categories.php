@@ -5,13 +5,13 @@ class Categories_Controller extends Base_Controller {
 	public $restful = true;
 	
 	/**
-	 * Récupération de toutes les catégories
+	 * Récupération de toutes les catégories dans la partie administration
 	 * @return une vue contenant les catégories
 	 */
-	public function get_categories() {
-			$categories = categorie::order_by('categorie_id','asc')->get();
-                        $cat_option = Categorie::lists('nomc','categorie_id');
-			return View::make('categories.categorieAdmin')->with('categories',$categories)->with('cat_option',$cat_option);
+	public function get_categories($per_page=4) {
+
+		$categories = Categorie::order_by('nomc')->paginate($per_page);        
+		return View::make('categories.categorieAdmin')->with('categories',$categories);
 	}
 
 	/**
@@ -31,7 +31,6 @@ class Categories_Controller extends Base_Controller {
 				'error'=> false,
 				'results'=> $categories
 			);
-
 		}		
 		return Response::json($return);
 	}
@@ -43,18 +42,15 @@ class Categories_Controller extends Base_Controller {
 	 * @return une vue contenant la catégorie trouvée ou pas sur la base de données
 	 */
 	public function get_modifierCat($id=null){
-            
 
-            $cat_option = Categorie::where_null('categorie_id')->lists('nomc','id');
-            array_unshift($cat_option, '');          
-            if($id != null){
-				$cat= Categorie::find($id);		
-				return View::make('categories.editCategorie')->with('categorie',$cat)->with('cat_option',$cat_option);
-			}
-			else {
-
-			return View::make('categories.editCategorie')->with('categorie',null)->with('cat_option',$cat_option);
-			}
+       $cat_option = Categorie::where_null('categorie_id')->lists('nomc','id');
+       array_unshift($cat_option, '');          
+       if($id != null){
+		    $cat= Categorie::find($id);		
+			return View::make('categories.editCategorie')->with('categorie',$cat)->with('cat_option',$cat_option);
+	    }else {
+		    return View::make('categories.editCategorie')->with('categorie',null)->with('cat_option',$cat_option);
+		}
 	}
 	
 	/**
@@ -220,7 +216,7 @@ class Categories_Controller extends Base_Controller {
                     }		
 
 		}
-		
+		}
 		return Redirect::to_action('categories/categories');
 		
 	}

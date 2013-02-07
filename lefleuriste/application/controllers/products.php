@@ -13,24 +13,16 @@ class Products_Controller extends Base_Controller {
 	 * Récupère tous les produits dans la base de données et pagine le tableau
 	 * @return une vue contenant les produits récupérés
 	 */
-	public function get_products(){
+	public function get_products($per_page=5){
 		
-		$products = DB::table('products')
-		            ->join('categories', 'products.categorie_id', '=', 'categories.id')
-                    ->get(array('products.id','products.nomP','products.chemin','categories.nomC'));
-		
+		$products = Product::order_by('nomp')->paginate($per_page);
+
 		return View::make('products.produitsAdmin')->with('products',$products);
-	}
-	
-	public function get_index()
+	}	
+		
+	public function get_ProductByCategorie($url, $id = null, $per_page=10)
 	{	
-		$products = Product::all();
-		return View::make('products.index')->with('products',$products);
-	}
-	
-	public function get_ProductByCategorie($url, $id = null)
-	{	
-		$products = Categorie::find($id)->products;
+		$products = Product::where('categorie_id', '=',$id)->order_by('nomp')->paginate($per_page);		
 		$cat= Categorie::find($id);
 		return View::make('products.bycategorie')->with('products',$products)->with('categorie',$cat);
 	}
@@ -65,7 +57,7 @@ class Products_Controller extends Base_Controller {
 			//Send the $validation object to the redirected page
             return Redirect::back()->with_errors($rules->errors())->with_input();
 		}
-		else 
+		else {
 			// recadrage d'image et sauvegard dans le dossier images
 			$success = Resizer::open( $newChemin)
     		->resize( 300 , 200 , 'fit' )
@@ -102,6 +94,7 @@ class Products_Controller extends Base_Controller {
 			else Session::flash('status_error','Le produit n\'a pas pu être ajouté');
 		
 			}
+		}
 		return Redirect::to_action('products@products');
 	 
 	}
