@@ -1,5 +1,5 @@
 @layout('base')
-
+  
 @section('content')
 
 <div class="row-fluid">
