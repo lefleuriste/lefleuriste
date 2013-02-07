@@ -11,8 +11,10 @@ class Categories_Controller extends Base_Controller {
 
 	public function get_categories($per_page=4) {
 
-		$categories = Categorie::order_by('nomc')->paginate($per_page);        
-		return View::make('categories.categorieAdmin')->with('categories',$categories); 
+		$categories = Categorie::order_by('categorie_id')->paginate($per_page); 
+		//options de la liste déroulante des actions
+		$options = array('0'=>'Choisissez une action', '1'=>'Supprimer');       
+		return View::make('categories.categorieAdmin')->with('categories',$categories)->with('options',$options); 
 
 	}
 

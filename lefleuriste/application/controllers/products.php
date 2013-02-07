@@ -16,8 +16,9 @@ class Products_Controller extends Base_Controller {
 	public function get_products($per_page=5){
 		
 		$products = Product::order_by('nomp')->paginate($per_page);
-
-		return View::make('products.produitsAdmin')->with('products',$products);
+		//options de la liste déroulante des actions
+		$options = array('0'=>'Choisissez une action', '1'=>'Supprimer');   
+		return View::make('products.produitsAdmin')->with('products',$products)->with('options',$options);
 	}	
 		
 	public function get_ProductByCategorie($url, $id = null, $per_page=10)
