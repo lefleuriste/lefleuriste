@@ -50,11 +50,10 @@
             <div class="controls">
             	{{Form::label('categorie_id','Catégorie')}}
                 @if ($product!=null)
-              
+				
                 <select id="categorie" name="categorie_id" data-target="sousCategorie" data-url="{{URL::base()}}/categories/listeSousCategories/" class="ajaxList">
-                    <option value="null">Sélectionnez une catégorie</option>
-                    @foreach($cat_option as $k => $v)                    
-                        <option value="{{$k}}" @if($product->categorie_id == $k) selected @else '' @endif>{{$v}}</option>
+                    @foreach($cat_option as $k => $v) 
+                        <option value="{{$k}}" @if($cat_mere->id == $k) selected @else '' @endif>{{$v}}</option>
                     @endforeach
                 </select> 
                 

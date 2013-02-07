@@ -32,9 +32,18 @@ class Products_Controller extends Base_Controller {
 		
 		$cat_option= Categorie::where_null('categorie_id')->lists('nom','id');
 		$sous_cat_option= Categorie::where_not_null('categorie_id')->lists('nom','id');
+		
 		if($id){
-			$prod= Product::find($id);		
-			return View::make('products.editProduit')->with('product',$prod)->with('cat_option',$cat_option)->with('sous_cat_option',$sous_cat_option);
+			$prod= Product::find($id);	
+			$cat_prod = Categorie::find($prod->categorie_id);
+			
+			if ($cat_prod->categorie_id != null){
+				$cat_mere = Categorie::find($cat_prod->categorie_id);
+			}
+			else {
+				$cat_mere = $cat_prod;
+			}
+			return View::make('products.editProduit')->with('product',$prod)->with('cat_option',$cat_option)->with('sous_cat_option',$sous_cat_option)->with('cat_mere',$cat_mere);
 		}
 		else {
 			return View::make('products.editProduit')->with('product',null)->with('cat_option',$cat_option)->with('sous_cat_option',$sous_cat_option);
