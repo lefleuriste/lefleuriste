@@ -154,8 +154,7 @@ class Categories_Controller extends Base_Controller {
 		
 	
 		
-	}
-	
+	}	
 	
 	/**
 	 * Supprimer une catégorie 
