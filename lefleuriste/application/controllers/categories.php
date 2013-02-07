@@ -5,13 +5,13 @@ class Categories_Controller extends Base_Controller {
 	public $restful = true;
 	
 	/**
-	 * Récupération de toutes les catégories
+	 * Récupération de toutes les catégories dans la partie administration
 	 * @return une vue contenant les catégories
 	 */
-	public function get_categories() {
-			$categories = categorie::order_by('categorie_id','asc')->get();
-                        $cat_option = Categorie::lists('nom','categorie_id');
-			return View::make('categories.categorieAdmin')->with('categories',$categories)->with('cat_option',$cat_option);
+	public function get_categories($per_page=4) {
+
+		$categories = Categorie::order_by('nomc')->paginate($per_page);        
+		return View::make('categories.categorieAdmin')->with('categories',$categories);
 	}
 
 	/**
@@ -21,7 +21,7 @@ class Categories_Controller extends Base_Controller {
 	 * @return un tableau contenant les sous catégories
 	 */
 	public function get_listeSousCategories($id=null) {		
-		$categories = DB::query('SELECT id, nom FROM categories WHERE categorie_id=?',array($id));
+		$categories = DB::query('SELECT id, nomc FROM categories WHERE categorie_id=?',array($id));
 		if(empty($categories)){
 			$return = array(
 				'error'=> "Il n'y a pas de sous catégories liées à cette catégorie"
@@ -31,7 +31,6 @@ class Categories_Controller extends Base_Controller {
 				'error'=> false,
 				'results'=> $categories
 			);
-
 		}		
 		return Response::json($return);
 	}
@@ -43,18 +42,14 @@ class Categories_Controller extends Base_Controller {
 	 * @return une vue contenant la catégorie trouvée ou pas sur la base de données
 	 */
 	public function get_modifierCat($id=null){
-            
-            $cat_option = Categorie::where_null('categorie_id')->lists('nom','id');
-            array_unshift($cat_option, '');
-          
-           
-            if($id != null){
-			$cat= Categorie::find($id);		
+
+       $cat_option = Categorie::where_null('categorie_id')->lists('nomc','id');
+       array_unshift($cat_option, '');          
+       if($id != null){
+		    $cat= Categorie::find($id);		
 			return View::make('categories.editCategorie')->with('categorie',$cat)->with('cat_option',$cat_option);
-		}
-		else {
-                        
-			return View::make('categories.editCategorie')->with('categorie',null)->with('cat_option',$cat_option);
+	    }else {
+		    return View::make('categories.editCategorie')->with('categorie',null)->with('cat_option',$cat_option);
 		}
 	}
 	
@@ -66,21 +61,24 @@ class Categories_Controller extends Base_Controller {
 	 *
 	 */
 	public function post_modifierCat(){
+		
 		$newNomCategorie = Input::get('Categorie');
+		
 		//$newCategorieMere = Input::get('categorie_id');
 		$id = Input::get('idcat');
 		$rules = new RulesCategorie();
-                
+		        
 		//Check if the validation succeeded
 		if(!$rules->validate(Input::all()) ) {
 			//Send the $validation object to the redirected page
-                    return Redirect::back()->with_errors($rules->errors())->with_input();
+           	return Redirect::back()->with_errors($rules->errors())->with_input();
 		}
-		
-		else
+		//si on n'a pas d'errors on continue
+		else {	
+
                     //modification d'une catégorie
                     // on vérifie l'unicité du nom de la catégorie
-                    $catExist=Categorie::where('nom','=',$newNomCategorie)->where('id','!=',$id)->get();
+                    $catExist=Categorie::where('nomc','=',$newNomCategorie)->where('id','!=',$id)->get();
                     if(!empty($catExist))
                     {
                       Session::flash('status_error','Cette catégorie existe déjà');
@@ -110,24 +108,78 @@ class Categories_Controller extends Base_Controller {
                      
                          $cat = Categorie::find($id);
 			if (isset($newNomCategorie) && !empty($newNomCategorie)){
+
 				
-                                $cat->nom = $newNomCategorie;
-				$cat->save();
-                                
+			 }
+			 else{
+				 //sinon on recupere la cle etranger de la sous categorie
+				 $newcatID=Input::get('categorie_id');
+				 
+			   
+			 }
+			 
+			//modification d'une catégorie;
+			if (isset($id) && $id != null){		
+				//recuperer tout les categories avec le id = $id		 
+				$cat = Categorie::find($id);
+				//tester si le champ categorie est bien rempli
+				if (isset($newNomCategorie) && !empty($newNomCategorie)){
+					//si bien rempli on le modifie dans la base de donnees
+					$cat->nom = $newNomCategorie;
+					$cat->save();
+								
+				}
+				//si la list roulant des sous categories est rempli
+				if (isset($newcatID) && !empty($newcatID)){
+					//on modifie dans la base de donnees
+					$cat->categorie_id = $newcatID;
+					$cat->save();
+				}
 			}
 			
-			if (isset($newcatID) && !empty($newcatID)){
+			//ajout d'une catégorie
+			else {	
+			
+				// on vérifie l'unicité du nom de la catégorie		
+				$catExist=Categorie::where('nom','=',$newNomCategorie)->get();
+				//si on choisit la case vide le champs categorie_id doit etre null 
+				if(Input::get('categorie_id')==0)
+				{    
+					$newcatID=Null;
+					//on vérifie le nombre de catégorie limité à 4  
+					$nbCat = Categorie::where_null('categorie_id')->count();
+					if($nbCat>=4)
+					{
+						Session::flash('status_error','Le nombre de catégorie est limité à 4, vous n\'avez plus le droit d\'en ajouter.');
+						return Redirect::back();;
+					}
+					
+				 }
+				 else{
+					 $newcatID=Input::get('categorie_id');
+				 }
+				//ajouter dans la base de donnees le nouvelle categorie 
+				$new_cat = array (
+					'nom' => Input::get('Categorie'),
+					'categorie_id' => $newcatID,			
+				);
+		
+				if ($cat = Categorie::create($new_cat)){
+					return Redirect::to_action('categories/categories');
+				}
+				else {
+					Session::flash('status_error','La catégorie n\'a pas pu être ajoutée');
+				}		
 				
-                                $cat->categorie_id = $newcatID;
-                                $cat->save();
 			}
+
                     }
 		
 		
 		else {
                     //ajout d'une catégorie
                     
-                    $catExist=Categorie::where('nom','=',$newNomCategorie)->get();
+                    $catExist=Categorie::where('nomc','=',$newNomCategorie)->get();
                      // on vérifie l'unicité du nom de la catégorie
                     if(!empty($catExist))
                     {
@@ -152,7 +204,7 @@ class Categories_Controller extends Base_Controller {
                      }
                      
                     $new_cat = array (
-                        'nom' => Input::get('Categorie'),
+                        'nomc' => Input::get('Categorie'),
 			'categorie_id' => $newcatID,			
                     );
 			
@@ -162,9 +214,9 @@ class Categories_Controller extends Base_Controller {
                     else {
 			Session::flash('status_error','La catégorie n\'a pas pu être ajoutée');
                     }		
-			
+
 		}
-		
+		}
 		return Redirect::to_action('categories/categories');
 		
 	}
