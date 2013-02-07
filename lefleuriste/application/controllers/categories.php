@@ -72,104 +72,98 @@ class Categories_Controller extends Base_Controller {
 		//$newCategorieMere = Input::get('categorie_id');
 		$id = Input::get('idcat');
 		$rules = new RulesCategorie();
-                
+		        
 		//Check if the validation succeeded
 		if(!$rules->validate(Input::all()) ) {
 			//Send the $validation object to the redirected page
            	return Redirect::back()->with_errors($rules->errors())->with_input();
 		}
+		//si on n'a pas d'errors on continue
+		else {	
 		
-		else {
-			
-			//modification d'une catégorie
 			// on vérifie l'unicité du nom de la catégorie
 			$catExist=Categorie::where('nom','=',$newNomCategorie)->where('id','!=',$id)->get();
-		}
-		
-		//si la categorie existe deja
-		if(!empty($catExist))
-		{
-		  Session::flash('status_error','Cette catégorie existe déjà');
-		  return Redirect::back(); 
-		}
-		
-		//si on choisit la case vide le champs categorie_id doit etre null 
-		if(Input::get('categorie_id')==0)
-		{    
-			//on vérifie le nombre de catégorie limité à 4  
-			$nbCat = Categorie::where_null('categorie_id')->count();
-			if($nbCat>=4)
-			{
-				Session::flash('status_error','Le nombre de catégorie est limité à 4, vous n\'avez plus le droit d\'en ajouter.');
-				return Redirect::back();;
-			}
-			//sinon on met le categorie_id a null
-			else $newcatID=Null; 
-		 }
-		 else{
-			 $newcatID=Input::get('categorie_id');
-			 
-		   
-		 }
-		 
-		//modification d'une catégorie;
-		if (isset($id) && $id != null){				 
-			$cat = Categorie::find($id);
-			//tester si le champ categorie est bien rempli
-			if (isset($newNomCategorie) && !empty($newNomCategorie)){
-			
-				$cat->nom = $newNomCategorie;
-				$cat->save();
-							
-			}
-		
-			if (isset($newcatID) && !empty($newcatID)){
-			
-				$cat->categorie_id = $newcatID;
-				$cat->save();
-			}
-		}
-		
-		
-		else {
-			//ajout d'une catégorie
-			
-			$catExist=Categorie::where('nom','=',$newNomCategorie)->get();
-			 // on vérifie l'unicité du nom de la catégorie
 			if(!empty($catExist))
 			{
-			  Session::flash('status_error','Cette catégorie existe déjà');
-			  return Redirect::back(); 
-			}
-			
+		  		Session::flash('status_error','Cette catégorie existe déjà');
+		  		return Redirect::back(); 
+			} 
+		
 			//si on choisit la case vide le champs categorie_id doit etre null 
 			if(Input::get('categorie_id')==0)
-			{    
-				//on vérifie le nombre de catégorie limité à 4  
+			{    			
+				$newcatID=Null;
+				//chercher dans la base de donnees tous les categories sans sous categories
 				$nbCat = Categorie::where_null('categorie_id')->count();
+				//on vérifie le nombre de catégorie limité à 4  
 				if($nbCat>=4)
 				{
 					Session::flash('status_error','Le nombre de catégorie est limité à 4, vous n\'avez plus le droit d\'en ajouter.');
 					return Redirect::back();;
 				}
-				$newcatID=Null;
+				
 			 }
 			 else{
+				 //sinon on recupere la cle etranger de la sous categorie
 				 $newcatID=Input::get('categorie_id');
+				 
+			   
 			 }
 			 
-			$new_cat = array (
-				'nom' => Input::get('Categorie'),
-				'categorie_id' => $newcatID,			
-			);
-	
-			if ($cat = Categorie::create($new_cat)){
-				return Redirect::to_action('categories/categories');
+			//modification d'une catégorie;
+			if (isset($id) && $id != null){		
+				//recuperer tout les categories avec le id = $id		 
+				$cat = Categorie::find($id);
+				//tester si le champ categorie est bien rempli
+				if (isset($newNomCategorie) && !empty($newNomCategorie)){
+					//si bien rempli on le modifie dans la base de donnees
+					$cat->nom = $newNomCategorie;
+					$cat->save();
+								
+				}
+				//si la list roulant des sous categories est rempli
+				if (isset($newcatID) && !empty($newcatID)){
+					//on modifie dans la base de donnees
+					$cat->categorie_id = $newcatID;
+					$cat->save();
+				}
 			}
-			else {
-				Session::flash('status_error','La catégorie n\'a pas pu être ajoutée');
-			}		
 			
+			//ajout d'une catégorie
+			else {	
+			
+				// on vérifie l'unicité du nom de la catégorie		
+				$catExist=Categorie::where('nom','=',$newNomCategorie)->get();
+				//si on choisit la case vide le champs categorie_id doit etre null 
+				if(Input::get('categorie_id')==0)
+				{    
+					$newcatID=Null;
+					//on vérifie le nombre de catégorie limité à 4  
+					$nbCat = Categorie::where_null('categorie_id')->count();
+					if($nbCat>=4)
+					{
+						Session::flash('status_error','Le nombre de catégorie est limité à 4, vous n\'avez plus le droit d\'en ajouter.');
+						return Redirect::back();;
+					}
+					
+				 }
+				 else{
+					 $newcatID=Input::get('categorie_id');
+				 }
+				//ajouter dans la base de donnees le nouvelle categorie 
+				$new_cat = array (
+					'nom' => Input::get('Categorie'),
+					'categorie_id' => $newcatID,			
+				);
+		
+				if ($cat = Categorie::create($new_cat)){
+					return Redirect::to_action('categories/categories');
+				}
+				else {
+					Session::flash('status_error','La catégorie n\'a pas pu être ajoutée');
+				}		
+				
+			}
 		}
 		
 		return Redirect::to_action('categories/categories');
