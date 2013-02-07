@@ -20,4 +20,5 @@ class Categorie extends Eloquent{
             {
             return $this->has_many('Categorie','categorie_id');
             }
+			
 }

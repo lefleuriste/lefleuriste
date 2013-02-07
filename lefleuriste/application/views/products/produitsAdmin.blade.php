@@ -27,7 +27,8 @@
 					<td>{{Form::checkbox('select[]',$p->id)}}</td>
 					<td>{{$p->nomp}}</td>
 					<td>{{$p->categorie->nomc}}</td>
-					<td>{{$p->chemin}}</td>					
+					<td>{{HTML::image('public/images/tab-'.$p->chemin)}}</td>					
+
 					<td>{{HTML::link_to_action('products.modifierProd', 'Modifier',array('id'=>$p->id),array('class' => 'btn btn-success'))}}</td>		
 					
 				</tr>
