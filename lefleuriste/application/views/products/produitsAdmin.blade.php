@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="row-fluid">
-	
+	     {{HTML::link_to_action('products@retour', 'Retour')}}	
 	<div class="span12">
 		<h2>Les produits</h2>
         
