@@ -11,7 +11,7 @@ class Categories_Controller extends Base_Controller {
 	public function get_categories($per_page=4) {
 
 		$categories = Categorie::order_by('nomc')->paginate($per_page);        
-		return View::make('categories.categorieAdmin')->with('categories',$categories);
+		return View::make('categories.categorieAdmin')->with('categories',$categories); 
 	}
 
 	/**
