@@ -4,12 +4,44 @@ class Categories_Controller extends Base_Controller {
 
 	public $restful = true;
 	
+	/**
+	 * Récupération de toutes les catégories
+	 * @return une vue contenant les catégories
+	 */
 	public function get_categories() {
 			$categories = categorie::order_by('categorie_id','asc')->get();
                         $cat_option = Categorie::lists('nom','categorie_id');
 			return View::make('categories.categorieAdmin')->with('categories',$categories)->with('cat_option',$cat_option);
-		}
+	}
+
+	/**
+	 * Récupération la liste de sous catégories 
+	 * Utilisé pour les listes liées dynamiques dans l'ajout et la modification d'un produit
+	 * @param id l'identifiant de la catégorie à chercher dans la base de données
+	 * @return un tableau contenant les sous catégories
+	 */
+	public function get_listeSousCategories($id=null) {		
+		$categories = DB::query('SELECT id, nom FROM categories WHERE categorie_id=?',array($id));
+		if(empty($categories)){
+			$return = array(
+				'error'=> "Il n'y a pas de sous catégories liées à cette catégorie"
+			);
+		}else{
+			$return = array(
+				'error'=> false,
+				'results'=> $categories
+			);
+
+		}		
+		return Response::json($return);
+	}
 	
+	/**
+	 * Modification d'une catégorie
+	 * Affiche le formulaire dans la vue
+	 * @param id l'identifiant de la catégorie à chercher dans la base de données
+	 * @return une vue contenant la catégorie trouvée ou pas sur la base de données
+	 */
 	public function get_modifierCat($id=null){
             
 		$cat_option = Categorie::where_null('categorie_id')->lists('nom','id');
@@ -26,6 +58,13 @@ class Categories_Controller extends Base_Controller {
 		}
 	}
 	
+	/**
+	 * Ajout et modification d'une catégorie dans la base de données 
+	 * Récupération des données du formulaire d'ajout et de modification d'une catégorie
+	 * @return Redirige l'utilisateur vers le formulaire avec les erreurs si il y a des erreurs
+	 *         Redirige vers le tableau de l'ensemble des catégories sinon
+	 *
+	 */
 	public function post_modifierCat(){
 		
 		$newNomCategorie = Input::get('Categorie');
@@ -138,7 +177,11 @@ class Categories_Controller extends Base_Controller {
 	}
 	
 	
-	
+	/**
+	 * Supprimer une catégorie 
+	 * Attention !! Tous les produits de la catégories seront supprimés
+	 * @return Redirige l'utilisateur vers le tableau des catégories	
+	 */
 	public function post_suppression(){
 
 		//tableau qui récupère les cases à cocher
