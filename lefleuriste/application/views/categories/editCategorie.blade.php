@@ -20,7 +20,7 @@
 				<div class="controls">
                 	{{Form::label('Categorie','Nom Catégorie')}}
 					@if ($categorie!=null)
-						{{Form::text('Categorie',Input::old('Categorie', $categorie->nom ),array('class'=>"inputError"))}}
+						{{Form::text('Categorie',Input::old('Categorie', $categorie->nomc ),array('class'=>"inputError"))}}
 					@else {{Form::text('Categorie',Input::old('Categorie'),array('class'=>"inputError"))}}
 					@endif
 					@if ($errors->has('Categorie'))

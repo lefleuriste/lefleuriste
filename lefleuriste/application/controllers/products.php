@@ -6,31 +6,30 @@ class Products_Controller extends Base_Controller {
 	public function __construct(){
         parent::__construct();
         
-		//$this->filter('before','csrf')->on('post');   
+		$this->filter('before','csrf')->on('post');   
     }
 	
-	public function get_products(){
+	/**
+	 * Récupère tous les produits dans la base de données et pagine le tableau
+	 * @return une vue contenant les produits récupérés
+	 */
+	public function get_products($per_page=5){
 		
-		$products = Product::all();
+		$products = Product::order_by('nomp')->paginate($per_page);
+
 		return View::make('products.produitsAdmin')->with('products',$products);
-	}
-	
-	public function get_index()
+	}	
+		
+	public function get_ProductByCategorie($url, $id = null, $per_page=10)
 	{	
-		$products = Product::all();
-		return View::make('products.index')->with('products',$products);
-	}
-	
-	public function get_ProductByCategorie($url, $id = null)
-	{	
-		$products = Categorie::find($id)->products;
+		$products = Product::where('categorie_id', '=',$id)->order_by('nomp')->paginate($per_page);		
 		$cat= Categorie::find($id);
 		return View::make('products.bycategorie')->with('products',$products)->with('categorie',$cat);
 	}
 	
 	public function get_modifierProd($id=null){		
 		
-		$cat_option= Categorie::where_null('categorie_id')->lists('nom','id');
+		$cat_option= Categorie::where_null('categorie_id')->lists('nomc','id');
 		if($id){
 			$prod= Product::find($id);		
 			return View::make('products.editProduit')->with('product',$prod)->with('cat_option',$cat_option);
@@ -44,7 +43,7 @@ class Products_Controller extends Base_Controller {
 	public function post_modifierProd(){
 	  	
 		
-		$newNomProduit = Input::get('nom_product');		
+		$newNomProduit = Input::get('nomp');		
 		$newDesc = Input::get('descriptif');
 		$newCatId = Input::get('categorie_id');			
 		$newSousCatId = Input::get('sousCategorie_id');			
@@ -58,7 +57,7 @@ class Products_Controller extends Base_Controller {
 			//Send the $validation object to the redirected page
             return Redirect::back()->with_errors($rules->errors())->with_input();
 		}
-		else 
+		else {
 			// recadrage d'image et sauvegard dans le dossier images
 			$success = Resizer::open( $newChemin)
     		->resize( 300 , 200 , 'fit' )
@@ -80,7 +79,7 @@ class Products_Controller extends Base_Controller {
 		else{
 						
 			$new_ajouter = array (
-			'nom_product' => Input::get('nom_product'),        	
+			'nom_product' => Input::get('nomp'),        	
 			'descriptif' => Input::get('descriptif'),
         	'categorie_id' => Input::get('categorie_id'),
 			'chemin' => $newChemin['name'],
@@ -95,6 +94,7 @@ class Products_Controller extends Base_Controller {
 			else Session::flash('status_error','Le produit n\'a pas pu être ajouté');
 		
 			}
+		}
 		return Redirect::to_action('products@products');
 	 
 	}
