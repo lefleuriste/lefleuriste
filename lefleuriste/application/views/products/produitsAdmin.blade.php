@@ -31,6 +31,7 @@
 					<td>{{HTML::link_to_action('products.modifierProd', 'Modifier',array('id'=>$p->id),array('class' => 'btn btn-success'))}}</td>		
 					
 				</tr>
+				
 				@endforeach
 			</table>
 			
