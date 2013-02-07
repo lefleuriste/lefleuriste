@@ -8,7 +8,23 @@ class Categories_Controller extends Base_Controller {
 			$categories = categorie::order_by('categorie_id','asc')->get();
                         $cat_option = Categorie::lists('nom','categorie_id');
 			return View::make('categories.categorieAdmin')->with('categories',$categories)->with('cat_option',$cat_option);
-		}
+	}
+
+	public function get_listeSousCategories($id=null) {		
+		$categories = DB::query('SELECT id, nom FROM categories WHERE categorie_id=?',array($id));
+		if(empty($categories)){
+			$return = array(
+				'error'=> "Il n'y a pas de sous catégories liées à cette catégorie"
+			);
+		}else{
+			$return = array(
+				'error'=> false,
+				'results'=> $categories
+			);
+
+		}		
+		return Response::json($return);
+	}
 	
 	public function get_modifierCat($id=null){
             
