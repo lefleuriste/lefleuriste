@@ -31,12 +31,13 @@ class Products_Controller extends Base_Controller {
 	public function get_modifierProd($id=null){		
 		
 		$cat_option= Categorie::where_null('categorie_id')->lists('nom','id');
+		$sous_cat_option= Categorie::where_not_null('categorie_id')->lists('nom','id');
 		if($id){
 			$prod= Product::find($id);		
-			return View::make('products.editProduit')->with('product',$prod)->with('cat_option',$cat_option);
+			return View::make('products.editProduit')->with('product',$prod)->with('cat_option',$cat_option)->with('sous_cat_option',$sous_cat_option);
 		}
 		else {
-			return View::make('products.editProduit')->with('product',null)->with('cat_option',$cat_option);
+			return View::make('products.editProduit')->with('product',null)->with('cat_option',$cat_option)->with('sous_cat_option',$sous_cat_option);
 		}
 	}
 	
@@ -44,7 +45,7 @@ class Products_Controller extends Base_Controller {
 	public function post_modifierProd(){
 	  	
 		
-		$newNomProduit = Input::get('nom_product');		
+		$newNomProduit = Input::get('nom');		
 		$newDesc = Input::get('descriptif');
 		$newCatId = Input::get('categorie_id');			
 		$newSousCatId = Input::get('sousCategorie_id');			
@@ -69,7 +70,7 @@ class Products_Controller extends Base_Controller {
 			
 			$prod = Product::find($id);		
 			
-			$prod->nom_product = $newNomProduit;						
+			$prod->nom = $newNomProduit;						
 			$prod->descriptif = $newDesc;			
 			$prod->categorie_id = $newCatId;			
 			$prod->chemin = $newChemin['name'];			
@@ -78,13 +79,18 @@ class Products_Controller extends Base_Controller {
 		}
 		//si ajout
 		else{
-						
+			if ($newSousCatId != null) {
+				$newId = $newSousCatId;
+			}
+			else{ 
+				$newId = $newCatId;
+			}
+					
 			$new_ajouter = array (
-			'nom_product' => Input::get('nom_product'),        	
+			'nom' => Input::get('nom'),        	
 			'descriptif' => Input::get('descriptif'),
-        	'categorie_id' => Input::get('categorie_id'),
+        	'categorie_id' => $newId,
 			'chemin' => $newChemin['name'],
-        	
 			);
 			//si bien ajouté
 			if ($ajout = Product::create($new_ajouter)){

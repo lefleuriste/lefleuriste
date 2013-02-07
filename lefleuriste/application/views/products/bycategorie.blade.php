@@ -22,7 +22,7 @@
 						<img alt="300x200" style="width: 300px; height: 200px;" src="{{URL::base().($products[$i-1]->chemin)}}">
 
 						<div class="caption">
-							<p><h4>{{$products[$i-1]->nom_product}}</h4></p>
+							<p><h4>{{$products[$i-1]->nom}}</h4></p>
 						</div> <!-- /caption -->
 					</a>
 			</li> <!-- /span3 -->

@@ -19,15 +19,15 @@
                 
             @endif
             
-    <div class="control-group @if ($errors->has('nom_product')) error @endif">
+    <div class="control-group @if ($errors->has('nom')) error @endif">
             <div class="controls">
-            	{{Form::label('nom_product','Nom Produit')}}
+            	{{Form::label('nom','Nom Produit')}}
                 @if ($product!=null)
-                    {{Form::text('nom_product',Input::old('nom_product',$product->nom_product))}}
-                @else {{Form::text('nom_product',Input::old('nom_product'),array('class'=>"inputError"))}}
+                    {{Form::text('nom',Input::old('nom',$product->nom))}}
+                @else {{Form::text('nom',Input::old('nom'),array('class'=>"inputError"))}}
                 @endif
-                @if ($errors->has('nom_product'))
-                    <span class="help-inline">{{$errors->first('nom_product',':message')}}</span>
+                @if ($errors->has('nom'))
+                    <span class="help-inline">{{$errors->first('nom',':message')}}</span>
                 @endif
             </div><!-- /class="controls" -->
 	</div><!-- /class="control-group -->    
@@ -76,7 +76,7 @@
             <div class="controls">
                 {{Form::label('categorie_id','Sous catégorie')}}
                 @if ($product!=null)
-                    {{Form::select('categorie_id', array(), null, array('id'=>'regiiiion'))}}
+					{{Form::select('categorie_id', $sous_cat_option, Input::old('categorie_id' ,$product->categorie_id))}}
                 @else                 
                 <select id="sousCategorie" name="sousCategorie_id">
                     <option value="null">Vous devez sélectionner une catégorie</option>                    

@@ -13,8 +13,9 @@ class Create_Products_Table {
 		{
 			$table->increments('id');
 			$table->string('nom', 100);
-			$table->decimal('prix', 5, 2);
-			$table->text('description');
+			$table->text('descriptif');
+			$table->integer('categorie_id')->unsigned()->nullable();
+			$table->foreign('categorie_id')->references('id')->on('categories');
 		});
 	}
 
