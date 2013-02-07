@@ -103,7 +103,7 @@ class Categories_Controller extends Base_Controller {
 				Session::flash('status_error','Le nombre de catégorie est limité à 4, vous n\'avez plus le droit d\'en ajouter.');
 				return Redirect::back();;
 			}
-			//sinon on met le categorie_id a 4
+			//sinon on met le categorie_id a null
 			else $newcatID=Null; 
 		 }
 		 else{
