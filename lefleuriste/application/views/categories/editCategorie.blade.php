@@ -31,10 +31,24 @@
 			
 			<div class="control-group @if ($errors->has('categorie_id')) error @endif">
                             <div class="controls">
-                                {{Form::label('categorie_id','Catégorie mère')}}
+                                {{Form::label('categorie_id','Catégorie mère')}} 
                                 @if ($categorie!=null)
-                                    {{Form::select('categorie_id', $cat_option, Input::old('categorie_id' ,$categorie->categorie_id))}}
-                                @else {{Form::select('categorie_id', $cat_option, Input::old('categorie_id'))}}
+                                	<select name="categorie_id" id="categorie_id">
+                                    	<option value="null"></option>
+                                        @foreach($cat_option as $k => $v)
+                                        	<option value="{{$k}}" @if ($categorie->categorie_id == $k) selected @endif>{{$v}}</option>
+                                        @endforeach
+                                    </select>
+                                    
+                                @else 
+                                	<select name="categorie_id" id="categorie_id">
+                                    	<option value="null"></option>
+                                        @foreach($cat_option as $k => $v)
+                                        	<option value="{{$k}}">{{$v}}</option>
+                                        @endforeach
+                                    </select>
+                                
+                                {{Form::select('categorie_id', $cat_option, Input::old('categorie_id'))}}
                                 @endif
                                 @if ($errors->has('categorie_id'))
                                     <span class="help-inline">{{$errors->first('categorie_id',':message')}}</span>

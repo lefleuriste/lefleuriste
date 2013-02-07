@@ -17,10 +17,12 @@
 			<li class="span3">
 					<!-- image -->
 					<a href="#" class="thumbnail">
-						<img alt="300x200" style="width: 300px; height: 200px;" src="{{URL::base().($products->results[$i-1]->chemin)}}">
+
+						{{HTML::image('public/images/'.$products->results[$i-1]->chemin)}}
 
 						<div class="caption">
 							<p><h4>{{$products->results[$i-1]->nomp}}</h4></p>
+
 						</div> <!-- /caption -->
 					</a>
 			</li> <!-- /span3 -->		
