@@ -19,8 +19,8 @@
 			<li class="span3">
 					<!-- image -->
 					<a href="#" class="thumbnail">
-						<img alt="300x200" style="width: 300px; height: 200px;" src="{{URL::base().($products[$i-1]->chemin)}}">
-
+						
+						{{HTML::image('public/images/'.$products[$i-1]->chemin)}}
 						<div class="caption">
 							<p><h4>{{$products[$i-1]->nom}}</h4></p>
 						</div> <!-- /caption -->

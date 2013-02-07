@@ -70,9 +70,15 @@ class Products_Controller extends Base_Controller {
 		}
 		else 
 			// recadrage d'image et sauvegard dans le dossier images
+			
 			$success = Resizer::open( $newChemin)
     		->resize( 300 , 200 , 'fit' )
     		->save($directory.$newChemin['name'] , 90);
+			
+
+			$success2 = Resizer::open($newChemin)
+			->resize( 100 , 66 , 'fit' )
+    		->save($directory.'tab-'.$newChemin['name'] , 90);
 		
 		//si modification
 		if (isset($id) && $id != null){
