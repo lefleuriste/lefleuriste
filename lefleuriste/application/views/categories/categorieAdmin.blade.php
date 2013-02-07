@@ -3,6 +3,7 @@
 @section('content')
 
 <div class="row-fluid">
+	{{HTML::link_to_action('categories@retour', 'Retour')}}	
 	<div class="span12">
 		<h2>Les catégories</h2>
 		{{HTML::link_to_action('categories@modifiercat', 'Ajouter',array(),array('class' => 'btn btn-success'))}}	

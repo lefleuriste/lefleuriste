@@ -29,13 +29,24 @@ class Products_Controller extends Base_Controller {
 	
 	public function get_modifierProd($id=null){		
 		
+
 		$cat_option= Categorie::where_null('categorie_id')->lists('nomc','id');
+		$sous_cat_option= Categorie::where_not_null('categorie_id')->lists('nomc','id');
+
 		if($id){
-			$prod= Product::find($id);		
-			return View::make('products.editProduit')->with('product',$prod)->with('cat_option',$cat_option);
+			$prod= Product::find($id);	
+			$cat_prod = Categorie::find($prod->categorie_id);
+			
+			if ($cat_prod->categorie_id != null){
+				$cat_mere = Categorie::find($cat_prod->categorie_id);
+			}
+			else {
+				$cat_mere = $cat_prod;
+			}
+			return View::make('products.editProduit')->with('product',$prod)->with('cat_option',$cat_option)->with('sous_cat_option',$sous_cat_option)->with('cat_mere',$cat_mere);
 		}
 		else {
-			return View::make('products.editProduit')->with('product',null)->with('cat_option',$cat_option);
+			return View::make('products.editProduit')->with('product',null)->with('cat_option',$cat_option)->with('sous_cat_option',$sous_cat_option);
 		}
 	}
 	
@@ -43,7 +54,9 @@ class Products_Controller extends Base_Controller {
 	public function post_modifierProd(){
 	  	
 		
-		$newNomProduit = Input::get('nomp');		
+
+		$newNomProduit = Input::get('nomp');	
+
 		$newDesc = Input::get('descriptif');
 		$newCatId = Input::get('categorie_id');			
 		$newSousCatId = Input::get('sousCategorie_id');			
@@ -59,16 +72,22 @@ class Products_Controller extends Base_Controller {
 		}
 		else {
 			// recadrage d'image et sauvegard dans le dossier images
+			
 			$success = Resizer::open( $newChemin)
     		->resize( 300 , 200 , 'fit' )
     		->save($directory.$newChemin['name'] , 90);
+			
+
+			$success2 = Resizer::open($newChemin)
+			->resize( 100 , 66 , 'fit' )
+    		->save($directory.'tab-'.$newChemin['name'] , 90);
 		
 		//si modification
 		if (isset($id) && $id != null){
 			
 			$prod = Product::find($id);		
 			
-			$prod->nom_product = $newNomProduit;						
+			$prod->nom = $newNomProduit;						
 			$prod->descriptif = $newDesc;			
 			$prod->categorie_id = $newCatId;			
 			$prod->chemin = $newChemin['name'];			
@@ -77,13 +96,19 @@ class Products_Controller extends Base_Controller {
 		}
 		//si ajout
 		else{
-						
+			if ($newSousCatId != null) {
+				$newId = $newSousCatId;
+			}
+			else{ 
+				$newId = $newCatId;
+			}
+					
 			$new_ajouter = array (
-			'nom_product' => Input::get('nomp'),        	
+
+			'nomp' => Input::get('nomp'),   
 			'descriptif' => Input::get('descriptif'),
-        	'categorie_id' => Input::get('categorie_id'),
+        	'categorie_id' => $newId,
 			'chemin' => $newChemin['name'],
-        	
 			);
 			//si bien ajouté
 			if ($ajout = Product::create($new_ajouter)){
@@ -133,5 +158,9 @@ class Products_Controller extends Base_Controller {
 		
 		return Redirect::back();
 	}
+	public function get_retour(){
+	     return Redirect::to_action('admin@index');
+	}
+	
 		
 }

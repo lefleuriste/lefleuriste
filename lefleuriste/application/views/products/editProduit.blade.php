@@ -19,6 +19,7 @@
                 
             @endif
             
+
     <div class="control-group @if ($errors->has('nomp')) error @endif">
             <div class="controls">
             	{{Form::label('nomp','Nom Produit')}}
@@ -28,6 +29,7 @@
                 @endif
                 @if ($errors->has('nomp'))
                     <span class="help-inline">{{$errors->first('nomp',':message')}}</span>
+
                 @endif
             </div><!-- /class="controls" -->
 	</div><!-- /class="control-group -->    
@@ -50,11 +52,10 @@
             <div class="controls">
             	{{Form::label('categorie_id','Catégorie')}}
                 @if ($product!=null)
-                         
+
                 <select id="categorie" name="categorie_id" data-target="sousCategorie" data-url="{{URL::base()}}/categories/listeSousCategories/" class="ajaxList">
-                    <option value="null">Sélectionnez une catégorie</option>
-                    @foreach($cat_option as $k => $v)                    
-                        <option value="{{$k}}" @if($product->categorie_id == $k) selected @else '' @endif>{{$v}}</option>
+                    @foreach($cat_option as $k => $v) 
+                        <option value="{{$k}}" @if($cat_mere->id == $k) selected @else '' @endif>{{$v}}</option>
                     @endforeach
                 </select> 
                 
@@ -76,7 +77,9 @@
             <div class="controls">
                 {{Form::label('categorie_id','Sous catégorie')}}
                 @if ($product!=null)
-                    {{Form::select('categorie_id', array(), null, array('id'=>''))}}
+
+					{{Form::select('categorie_id', $sous_cat_option, Input::old('categorie_id' ,$product->categorie_id))}}
+
                 @else                 
                 <select id="sousCategorie" name="sousCategorie_id">
                     <option value="null">Vous devez sélectionner une catégorie</option>                    
