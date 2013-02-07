@@ -8,10 +8,12 @@ class Categories_Controller extends Base_Controller {
 	 * Récupération de toutes les catégories
 	 * @return une vue contenant les catégories
 	 */
-	public function get_categories() {
-		$categories = categorie::order_by('categorie_id','asc')->get();
-        $cat_option = Categorie::lists('nomc','categorie_id');
-		return View::make('categories.categorieAdmin')->with('categories',$categories)->with('cat_option',$cat_option);
+
+	public function get_categories($per_page=4) {
+
+		$categories = Categorie::order_by('nomc')->paginate($per_page);        
+		return View::make('categories.categorieAdmin')->with('categories',$categories); 
+
 	}
 
 	/**
