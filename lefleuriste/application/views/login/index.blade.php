@@ -7,11 +7,7 @@
 	
 		<div class="span12">
 			<h2>Se connecter</h2>
-			<hr class="sexy_line" />
-		
-		
-				
-				
+			<hr class="sexy_line" />			
 				{{Form::open('login', 'Post', array('class'=>'form-horizontal'))}}
 				
                 <div class="control-group">

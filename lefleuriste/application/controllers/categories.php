@@ -10,7 +10,7 @@ class Categories_Controller extends Base_Controller {
 	 */
 	public function get_categories() {
 			$categories = categorie::order_by('categorie_id','asc')->get();
-                        $cat_option = Categorie::lists('nom','categorie_id');
+                        $cat_option = Categorie::lists('nomc','categorie_id');
 			return View::make('categories.categorieAdmin')->with('categories',$categories)->with('cat_option',$cat_option);
 	}
 
@@ -21,7 +21,7 @@ class Categories_Controller extends Base_Controller {
 	 * @return un tableau contenant les sous catégories
 	 */
 	public function get_listeSousCategories($id=null) {		
-		$categories = DB::query('SELECT id, nom FROM categories WHERE categorie_id=?',array($id));
+		$categories = DB::query('SELECT id, nomc FROM categories WHERE categorie_id=?',array($id));
 		if(empty($categories)){
 			$return = array(
 				'error'=> "Il n'y a pas de sous catégories liées à cette catégorie"
@@ -44,18 +44,17 @@ class Categories_Controller extends Base_Controller {
 	 */
 	public function get_modifierCat($id=null){
             
-		$cat_option = Categorie::where_null('categorie_id')->lists('nom','id');
-		array_unshift($cat_option, '');
-	  
-	   
-		if($id != null){
-			$cat= Categorie::find($id);		
-			return View::make('categories.editCategorie')->with('categorie',$cat)->with('cat_option',$cat_option);
-		}
-		else {
-					
+
+            $cat_option = Categorie::where_null('categorie_id')->lists('nomc','id');
+            array_unshift($cat_option, '');          
+            if($id != null){
+				$cat= Categorie::find($id);		
+				return View::make('categories.editCategorie')->with('categorie',$cat)->with('cat_option',$cat_option);
+			}
+			else {
+
 			return View::make('categories.editCategorie')->with('categorie',null)->with('cat_option',$cat_option);
-		}
+			}
 	}
 	
 	/**
@@ -80,27 +79,40 @@ class Categories_Controller extends Base_Controller {
 		}
 		//si on n'a pas d'errors on continue
 		else {	
-		
-			// on vérifie l'unicité du nom de la catégorie
-			$catExist=Categorie::where('nom','=',$newNomCategorie)->where('id','!=',$id)->get();
-			if(!empty($catExist))
-			{
-		  		Session::flash('status_error','Cette catégorie existe déjà');
-		  		return Redirect::back(); 
-			} 
-		
-			//si on choisit la case vide le champs categorie_id doit etre null 
-			if(Input::get('categorie_id')==0)
-			{    			
-				$newcatID=Null;
-				//chercher dans la base de donnees tous les categories sans sous categories
-				$nbCat = Categorie::where_null('categorie_id')->count();
-				//on vérifie le nombre de catégorie limité à 4  
-				if($nbCat>=4)
-				{
-					Session::flash('status_error','Le nombre de catégorie est limité à 4, vous n\'avez plus le droit d\'en ajouter.');
-					return Redirect::back();;
-				}
+
+                    //modification d'une catégorie
+                    // on vérifie l'unicité du nom de la catégorie
+                    $catExist=Categorie::where('nomc','=',$newNomCategorie)->where('id','!=',$id)->get();
+                    if(!empty($catExist))
+                    {
+                      Session::flash('status_error','Cette catégorie existe déjà');
+                      return Redirect::back(); 
+                    }
+                    
+                    //si on choisit la case vide le champs categorie_id doit etre null 
+                    if(Input::get('categorie_id')==0)
+                    {    
+                        //on vérifie le nombre de catégorie limité à 4  
+                        $nbCat = Categorie::where_null('categorie_id')->count();
+                        if($nbCat>=4)
+                        {
+                            Session::flash('status_error','Le nombre de catégorie est limité à 4, vous n\'avez plus le droit d\'en ajouter.');
+                            return Redirect::back();;
+                        }
+                        $newcatID=Null; 
+                     }
+                     else{
+                         $newcatID=Input::get('categorie_id');
+                         
+                       
+                     }
+
+                    if (isset($id) && $id != null){
+			//modification d'une catégoriecho 'OK';
+                     
+                         $cat = Categorie::find($id);
+			if (isset($newNomCategorie) && !empty($newNomCategorie)){
+
 				
 			 }
 			 else{
@@ -164,6 +176,49 @@ class Categories_Controller extends Base_Controller {
 				}		
 				
 			}
+
+                    }
+		
+		
+		else {
+                    //ajout d'une catégorie
+                    
+                    $catExist=Categorie::where('nomc','=',$newNomCategorie)->get();
+                     // on vérifie l'unicité du nom de la catégorie
+                    if(!empty($catExist))
+                    {
+                      Session::flash('status_error','Cette catégorie existe déjà');
+                      return Redirect::back(); 
+                    }
+                    
+                    //si on choisit la case vide le champs categorie_id doit etre null 
+                    if(Input::get('categorie_id')==0)
+                    {    
+                        //on vérifie le nombre de catégorie limité à 4  
+                        $nbCat = Categorie::where_null('categorie_id')->count();
+                        if($nbCat>=4)
+                        {
+                            Session::flash('status_error','Le nombre de catégorie est limité à 4, vous n\'avez plus le droit d\'en ajouter.');
+                            return Redirect::back();;
+                        }
+                        $newcatID=Null;
+                     }
+                     else{
+                         $newcatID=Input::get('categorie_id');
+                     }
+                     
+                    $new_cat = array (
+                        'nomc' => Input::get('Categorie'),
+			'categorie_id' => $newcatID,			
+                    );
+			
+                    if ($cat = Categorie::create($new_cat)){
+			return Redirect::to_action('categories/categories');
+                    }
+                    else {
+			Session::flash('status_error','La catégorie n\'a pas pu être ajoutée');
+                    }		
+
 		}
 		
 		return Redirect::to_action('categories/categories');

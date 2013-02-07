@@ -6,7 +6,7 @@
 <div class="row-fluid">
 	<div class="span12">
    		<div class="titre">
-		<h2> Nos {{Str::plural($categorie->nom)}} </h2>
+		<h2> Nos {{Str::plural($categorie->nomc)}} </h2>
         </div>
     </div> <!-- / span12 -->
 	@if($products)
@@ -22,23 +22,19 @@
 						<img alt="300x200" style="width: 300px; height: 200px;" src="{{URL::base().($products[$i-1]->chemin)}}">
 
 						<div class="caption">
-							<p><h4>{{$products[$i-1]->nom_product}}</h4></p>
+							<p><h4>{{$products[$i-1]->nomp}}</h4></p>
 						</div> <!-- /caption -->
 					</a>
 			</li> <!-- /span3 -->
 		
 			
-				@if($i>0 AND $i%4==0)
+		@if($i>0 AND $i%4==0)
     </div> <!-- /row-fluid -->
 		<div class="span12">
 		</div>	<!-- /span12 -->
 			
 		<div class="row-fluid">	
-			@endif
-			
-
-			
-	
+			@endif	
     @endfor
 	</div> <!-- /row-fluid -->
 	</ul>

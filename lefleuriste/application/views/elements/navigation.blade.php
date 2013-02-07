@@ -30,12 +30,12 @@
                             @if($i==0)
                             
                                 <li class="dropdown" >
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="50" data-close-others="true">{{$categorie->nom}}<b class="caret"></b></a>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="50" data-close-others="true">{{$categorie->nomc}}<b class="caret"></b></a>
                                 <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
-                                <li><a href="{{URL::to_route('bycategorie',array(Str::slug($categorie->categories[$i]->nom), $categorie->categories[$i]->id))}}" tabindex="-1" >{{$categorie->categories[$i]->nom}}</a></li>
+                                <li><a href="{{URL::to_route('bycategorie',array(Str::slug($categorie->categories[$i]->nomc), $categorie->categories[$i]->id))}}" tabindex="-1" >{{$categorie->categories[$i]->nomc}}</a></li>
                             
                             @else				
-                                <li><a href="{{URL::to_route('bycategorie',array(Str::slug($categorie->categories[$i]->nom), $categorie->categories[$i]->id))}}" tabindex="-1" >{{$categorie->categories[$i]->nom}}</a></li>
+                                <li><a href="{{URL::to_route('bycategorie',array(Str::slug($categorie->categories[$i]->nomc), $categorie->categories[$i]->id))}}" tabindex="-1" >{{$categorie->categories[$i]->nomc}}</a></li>
                             @endif
                         	
                             @if($c-1 == $i)	
@@ -47,7 +47,7 @@
 						@endfor
 						<!-- sinon on affiche le nom de la categorie -->	
                     @else 
-                    	<li>{{HTML::link_to_route('bycategorie',$categorie->nom, array(Str::slug($categorie->nom), $categorie->id))}}</li>               
+                    	<li>{{HTML::link_to_route('bycategorie',$categorie->nomc, array(Str::slug($categorie->nomc), $categorie->id))}}</li>               
 					@endif
       			@endforeach <!-- fin de recuperation des categories -->
         		          
