@@ -6,7 +6,7 @@ class Products_Controller extends Base_Controller {
 	public function __construct(){
         parent::__construct();
         
-		//$this->filter('before','csrf')->on('post');   
+		$this->filter('before','csrf')->on('post');   
     }
 	
 	public function get_products(){
