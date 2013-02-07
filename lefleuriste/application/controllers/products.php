@@ -9,9 +9,16 @@ class Products_Controller extends Base_Controller {
 		$this->filter('before','csrf')->on('post');   
     }
 	
+	/**
+	 * Récupère tous les produits dans la base de données et pagine le tableau
+	 * @return une vue contenant les produits récupérés
+	 */
 	public function get_products(){
 		
-		$products = Product::all();
+		$products = DB::table('products')
+		            ->join('categories', 'products.categorie_id', '=', 'categories.id')
+                    ->get(array('products.id','products.nomP','products.chemin','categories.nomC'));
+		
 		return View::make('products.produitsAdmin')->with('products',$products);
 	}
 	
@@ -30,7 +37,7 @@ class Products_Controller extends Base_Controller {
 	
 	public function get_modifierProd($id=null){		
 		
-		$cat_option= Categorie::where_null('categorie_id')->lists('nom','id');
+		$cat_option= Categorie::where_null('categorie_id')->lists('nomc','id');
 		if($id){
 			$prod= Product::find($id);		
 			return View::make('products.editProduit')->with('product',$prod)->with('cat_option',$cat_option);
@@ -44,7 +51,7 @@ class Products_Controller extends Base_Controller {
 	public function post_modifierProd(){
 	  	
 		
-		$newNomProduit = Input::get('nom_product');		
+		$newNomProduit = Input::get('nomp');		
 		$newDesc = Input::get('descriptif');
 		$newCatId = Input::get('categorie_id');			
 		$newSousCatId = Input::get('sousCategorie_id');			
@@ -80,7 +87,7 @@ class Products_Controller extends Base_Controller {
 		else{
 						
 			$new_ajouter = array (
-			'nom_product' => Input::get('nom_product'),        	
+			'nom_product' => Input::get('nomp'),        	
 			'descriptif' => Input::get('descriptif'),
         	'categorie_id' => Input::get('categorie_id'),
 			'chemin' => $newChemin['name'],

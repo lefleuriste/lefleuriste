@@ -12,7 +12,7 @@
 			@foreach($products as $p)
             <tr>
 	            <td>{{$p->id}}</td>
-	            <td>{{HTML::link_to_route('productDetails', $p->nom ,array('id' => $p->id));}}</td>
+	            <td>{{HTML::link_to_route('productDetails', $p->nomp ,array('id' => $p->id));}}</td>
 	            <td>{{Str::limit($p->description,200)}}</td>
 	            <td>{{$p->prix}}€</td>
             </td>

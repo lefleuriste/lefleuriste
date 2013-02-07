@@ -6,12 +6,12 @@ class Categories_Controller extends Base_Controller {
 	
 	public function get_categories() {
 			$categories = categorie::order_by('categorie_id','asc')->get();
-                        $cat_option = Categorie::lists('nom','categorie_id');
+                        $cat_option = Categorie::lists('nomc','categorie_id');
 			return View::make('categories.categorieAdmin')->with('categories',$categories)->with('cat_option',$cat_option);
 	}
 
 	public function get_listeSousCategories($id=null) {		
-		$categories = DB::query('SELECT id, nom FROM categories WHERE categorie_id=?',array($id));
+		$categories = DB::query('SELECT id, nomc FROM categories WHERE categorie_id=?',array($id));
 		if(empty($categories)){
 			$return = array(
 				'error'=> "Il n'y a pas de sous catégories liées à cette catégorie"
@@ -28,18 +28,16 @@ class Categories_Controller extends Base_Controller {
 	
 	public function get_modifierCat($id=null){
             
-            $cat_option = Categorie::where_null('categorie_id')->lists('nom','id');
-            array_unshift($cat_option, '');
-          
-           
+            $cat_option = Categorie::where_null('categorie_id')->lists('nomc','id');
+            array_unshift($cat_option, '');          
             if($id != null){
-			$cat= Categorie::find($id);		
-			return View::make('categories.editCategorie')->with('categorie',$cat)->with('cat_option',$cat_option);
-		}
-		else {
+				$cat= Categorie::find($id);		
+				return View::make('categories.editCategorie')->with('categorie',$cat)->with('cat_option',$cat_option);
+			}
+			else {
                         
 			return View::make('categories.editCategorie')->with('categorie',null)->with('cat_option',$cat_option);
-		}
+			}
 	}
 	
 	public function post_modifierCat(){
@@ -57,7 +55,7 @@ class Categories_Controller extends Base_Controller {
 		else
                     //modification d'une catégorie
                     // on vérifie l'unicité du nom de la catégorie
-                    $catExist=Categorie::where('nom','=',$newNomCategorie)->where('id','!=',$id)->get();
+                    $catExist=Categorie::where('nomc','=',$newNomCategorie)->where('id','!=',$id)->get();
                     if(!empty($catExist))
                     {
                       Session::flash('status_error','Cette catégorie existe déjà');
@@ -104,7 +102,7 @@ class Categories_Controller extends Base_Controller {
 		else {
                     //ajout d'une catégorie
                     
-                    $catExist=Categorie::where('nom','=',$newNomCategorie)->get();
+                    $catExist=Categorie::where('nomc','=',$newNomCategorie)->get();
                      // on vérifie l'unicité du nom de la catégorie
                     if(!empty($catExist))
                     {
@@ -129,7 +127,7 @@ class Categories_Controller extends Base_Controller {
                      }
                      
                     $new_cat = array (
-                        'nom' => Input::get('Categorie'),
+                        'nomc' => Input::get('Categorie'),
 			'categorie_id' => $newcatID,			
                     );
 			

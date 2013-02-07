@@ -25,13 +25,13 @@
 				@foreach($categories as $c)
 				<tr>					
 					<td>{{Form::checkbox('select[]',$c->id)}}</td>
-					<td>{{$c->nom}}</td>
+					<td>{{$c->nomc}}</td>
                                         <td>
 					@if($c->categorie_id!=null)
-						{{$c->parent_categorie->nom}}
+						{{$c->parent_categorie->nomc}}
 					@endif
 					</td>
-                                       	<td>{{HTML::link_to_action('categories.modifierCat', 'Modifier',array('id'=>$c->id),array('class' => 'btn btn-success'))}}</td>
+                    <td>{{HTML::link_to_action('categories.modifierCat', 'Modifier',array('id'=>$c->id),array('class' => 'btn btn-success'))}}</td>
 				</tr>
 				@endforeach
 		</table>
