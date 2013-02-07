@@ -256,7 +256,7 @@ class Categories_Controller extends Base_Controller {
 		return Redirect::back();
 	}
 	public function get_retour(){
-	     return Redirect::back();
+	     return Redirect::to_action('admin@index');
 	}
 	
 }
