@@ -3,9 +3,12 @@
 class Products_Controller extends Base_Controller {
 
 	public $restful = true;
+
 	public function __construct(){
         parent::__construct();
         
+        //filtre pour sécuriser les pages liées à l'administration
+		$this->filter('before','auth')->only(array('products','modifierprod','suppression'));
 		$this->filter('before','csrf')->on('post');   
     }
 	
@@ -159,10 +162,5 @@ class Products_Controller extends Base_Controller {
 		}
 		
 		return Redirect::back();
-	}
-	public function get_retour(){
-	     return Redirect::to_action('admin@index');
-	}
-	
-		
+	}	
 }
