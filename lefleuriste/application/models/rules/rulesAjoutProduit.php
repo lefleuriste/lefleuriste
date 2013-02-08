@@ -7,7 +7,7 @@ class RulesAjoutProduit extends Elegant
 			
 			'descriptif' => 'required',
 			'categorie_id' => 'numeric',
-			'chemin' => 'required|image|max:5000',
+			'chemin' => 'image|max:5000',
 			
 		);
 }
