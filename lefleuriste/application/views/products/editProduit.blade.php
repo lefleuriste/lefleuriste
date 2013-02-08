@@ -78,7 +78,7 @@
                 {{Form::label('categorie_id','Sous catégorie')}}
                 @if ($product!=null)
 
-					{{Form::select('categorie_id', $sous_cat_option, Input::old('categorie_id' ,$product->categorie_id))}}
+					{{Form::select('categorie_id', $sous_cat_option, Input::old('categorie_id' ,$product->categorie_id),array('id'=>'sousCategorie'))}}
 
                 @else                 
                 <select id="sousCategorie" name="sousCategorie_id">
