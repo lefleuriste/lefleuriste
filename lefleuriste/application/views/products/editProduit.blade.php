@@ -91,9 +91,20 @@
             </div><!-- /class="controls" -->
     </div><!-- /class="control-group -->
 
+	@if ($product!=null)
+        <div class="control-group @if ($errors->has('chemin')) error @endif">
+                <div class="controls">            	
+            	 
+                 	{{Form::label('image','Image Actuelle')}}
+            		{{HTML::image('public/images/tab-'.$product->chemin)}}
+                 
+                </div> <!-- /class="controls" -->
+        </div> <!-- /class="control-group -->  
+	@endif
+    
 	<div class="control-group @if ($errors->has('chemin')) error @endif">
             <div class="controls">
-            	{{Form::label('chemin','Image')}}
+            	{{Form::label('chemin','Choississez une nouvelle image')}}
                 @if ($product!=null)
                     {{Form::file('chemin')}}
                 @else {{Form::file('chemin')}}

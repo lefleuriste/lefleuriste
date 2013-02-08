@@ -97,6 +97,7 @@ class Products_Controller extends Base_Controller {
 		}
 		//si ajout
 		else{
+			
 			if ($newSousCatId != null) {
 				$newId = $newSousCatId;
 			}
