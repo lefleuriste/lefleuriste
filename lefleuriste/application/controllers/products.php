@@ -64,14 +64,22 @@ class Products_Controller extends Base_Controller {
 		$newSousCatId = Input::get('sousCategorie_id');			
 		$newChemin = Input::file('chemin');			
 		$id = Input::get('idprod');	
-		$directory = path('public').'images/';	
-		$rules = new RulesAjoutProduit();		
+		$directory = path('public').'images/';
+			
+		$rulesajout = new RulesAjoutProduit();
+		$rulesmodif = new RulesModifProduit();
+			
 		
 		//Check if the validation succeeded
-		if(!$rules->validate(Input::all()) ) { 
+		if((isset($id) && $id != 'null') && !$rulesmodif->validate(Input::all()) ) { 
 			//Send the $validation object to the redirected page
-            return Redirect::back()->with_errors($rules->errors())->with_input();
+            return Redirect::back()->with_errors($rulesmodif->errors())->with_input();
 		}
+		else if ((!isset($id) || $id == 'null') && !$rulesajout->validate(Input::all())){
+			//Send the $validation object to the redirected page
+            return Redirect::back()->with_errors($rulesajout->errors())->with_input();
+		}
+		
 		//pas de errors de validation
 		else {	
 			
