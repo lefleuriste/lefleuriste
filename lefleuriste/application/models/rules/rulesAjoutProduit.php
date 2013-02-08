@@ -3,7 +3,7 @@
 class RulesAjoutProduit extends Elegant
 {
 	protected $rules = array(
-			'nom' => 'required',
+			'nomp' => 'required',
 			
 			'descriptif' => 'required',
 			'categorie_id' => 'numeric',

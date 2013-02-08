@@ -57,8 +57,6 @@ class Products_Controller extends Base_Controller {
 	
 	public function post_modifierProd(){
 	  	
-		
-
 		$newNomProduit = Input::get('nomp');	
 
 		$newDesc = Input::get('descriptif');
@@ -70,13 +68,16 @@ class Products_Controller extends Base_Controller {
 		$rules = new RulesAjoutProduit();		
 		
 		//Check if the validation succeeded
-		if(!$rules->validate(Input::all()) ) {
+		if(!$rules->validate(Input::all()) ) { 
 			//Send the $validation object to the redirected page
             return Redirect::back()->with_errors($rules->errors())->with_input();
 		}
 		else {
-			// recadrage d'image et sauvegard dans le dossier images
 			
+			
+			
+			// recadrage d'image et sauvegard dans le dossier images
+						
 			$success = Resizer::open( $newChemin)
     		->resize( 300 , 200 , 'fit' )
     		->save($directory.$newChemin['name'] , 90);
@@ -91,7 +92,7 @@ class Products_Controller extends Base_Controller {
 			
 			$prod = Product::find($id);		
 			
-			$prod->nom = $newNomProduit;						
+			$prod->nomp = $newNomProduit;						
 			$prod->descriptif = $newDesc;			
 			$prod->categorie_id = $newCatId;			
 			$prod->chemin = $newChemin['name'];			
