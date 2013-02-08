@@ -96,6 +96,7 @@
                 <div class="controls">            	
             	 
                  	{{Form::label('image','Image Actuelle')}}
+                    {{Form::label('oldchemin',$product->chemin)}}
             		{{HTML::image('public/images/tab-'.$product->chemin)}}
                  
                 </div> <!-- /class="controls" -->
