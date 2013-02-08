@@ -29,6 +29,7 @@
 				</div><!--/controls-->
 			</div><!--/control-group-->
 			
+			<!-- Champ catégorie mere -->
 			<div class="control-group @if ($errors->has('categorie_id')) error @endif">
                             <div class="controls">
                                 {{Form::label('categorie_id','Catégorie mère')}} 
