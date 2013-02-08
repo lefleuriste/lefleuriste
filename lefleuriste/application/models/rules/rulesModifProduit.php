@@ -1,12 +1,12 @@
 <?php
 
-class RulesAjoutProduit extends Elegant
+class RulesModifProduit extends Elegant
 {
 	protected $rules = array(
 			'nomp' => 'required',			
 			'descriptif' => 'required',
 			'categorie_id' => 'numeric',
-			'chemin' => 'required|image|max:5000',
+			'chemin' => 'image|max:5000',
 			
 		);
 	

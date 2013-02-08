@@ -336,7 +336,7 @@ ul{
   padding: 15px 10px 15px 10px;
   text-align: center;
   color: #555;
-  font-size: 13px;
+  font-size: 16px;
   line-height: 1.3em;
 }
 
@@ -349,14 +349,20 @@ ul{
 }
 				
 .shortcut-button span:hover {
-	color: #57a000; 
+	color: #57a000;
+	
 }
+
 
 ul.shortcut-buttons-set li {
   float: left;
   margin: 0 15px 0 0;
 	padding: 0 !important;
 	background: 0;
+}
+
+ul.shortcut-buttons-set li a:hover {
+  text-decoration:none;
 }
 
 /************ Table ************/

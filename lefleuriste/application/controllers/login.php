@@ -2,11 +2,16 @@
 
 class Login_Controller extends Base_Controller {
     public $restful = true;
+
+    public function __construct(){
+        parent::__construct();
+        
+        //filtre pour sécuriser les pages liées à l'administration
+		$this->filter('before','auth')->only(array('logout'));
+		$this->filter('before','csrf')->on('post');   
+    }
    
-	public function get_index(){
-		if(Auth::check()){
-		   return Redirect::to(URL::to_action('admin.index'));	
-		}
+	public function get_index(){		
     	return View::make('login.index');
 	}
 	

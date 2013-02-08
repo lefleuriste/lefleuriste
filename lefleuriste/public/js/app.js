@@ -7,7 +7,7 @@
          var url = select.data('url')+select.val();    
          var id = '#'+select.data('target');
          $.get(url,{},function(data){
-            var target = $(id).get(0);               
+            var target = $(id).get(0);                     
             if(data.error){        
               $(id).parents('.control-group').hide(); 
               target.options.length = 0;

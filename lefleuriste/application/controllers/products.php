@@ -3,9 +3,12 @@
 class Products_Controller extends Base_Controller {
 
 	public $restful = true;
+
 	public function __construct(){
         parent::__construct();
         
+        //filtre pour sécuriser les pages liées à l'administration
+		$this->filter('before','auth')->only(array('products','modifierprod','suppression'));
 		$this->filter('before','csrf')->on('post');   
     }
 	
@@ -54,8 +57,6 @@ class Products_Controller extends Base_Controller {
 	
 	public function post_modifierProd(){
 	  	
-		
-
 		$newNomProduit = Input::get('nomp');	
 
 		$newDesc = Input::get('descriptif');
@@ -63,62 +64,83 @@ class Products_Controller extends Base_Controller {
 		$newSousCatId = Input::get('sousCategorie_id');			
 		$newChemin = Input::file('chemin');			
 		$id = Input::get('idprod');	
-		$directory = path('public').'images/';	
-		$rules = new RulesAjoutProduit();		
+		$directory = path('public').'images/';
+			
+		$rulesajout = new RulesAjoutProduit();
+		$rulesmodif = new RulesModifProduit();
+			
 		
 		//Check if the validation succeeded
-		if(!$rules->validate(Input::all()) ) {
+		if((isset($id) && $id != 'null') && !$rulesmodif->validate(Input::all()) ) { 
 			//Send the $validation object to the redirected page
-            return Redirect::back()->with_errors($rules->errors())->with_input();
+            return Redirect::back()->with_errors($rulesmodif->errors())->with_input();
 		}
-		else {
-			// recadrage d'image et sauvegard dans le dossier images
-			
-			$success = Resizer::open( $newChemin)
-    		->resize( 300 , 200 , 'fit' )
-    		->save($directory.$newChemin['name'] , 90);
-			
-
-			$success2 = Resizer::open($newChemin)
-			->resize( 100 , 66 , 'fit' )
-    		->save($directory.'tab-'.$newChemin['name'] , 90);
+		else if ((!isset($id) || $id == 'null') && !$rulesajout->validate(Input::all())){
+			//Send the $validation object to the redirected page
+            return Redirect::back()->with_errors($rulesajout->errors())->with_input();
+		}
 		
-		//si modification
-		if (isset($id) && $id != null){
+		//pas de errors de validation
+		else {	
 			
-			$prod = Product::find($id);		
-			
-			$prod->nom = $newNomProduit;						
-			$prod->descriptif = $newDesc;			
-			$prod->categorie_id = $newCatId;			
-			$prod->chemin = $newChemin['name'];			
-			$prod->save();
-			
-		}
-		//si ajout
-		else{
-			if ($newSousCatId != null) {
-				$newId = $newSousCatId;
+			// recadrage d'image et sauvegard dans le dossier images
+			if ($newChemin['error']==0){		
+				$success = Resizer::open( $newChemin)
+				->resize( 300 , 200 , 'fit' )
+				->save($directory.$newChemin['name'] , 90);
+				
+	
+				$success2 = Resizer::open($newChemin)
+				->resize( 100 , 66 , 'fit' )
+				->save($directory.'tab-'.$newChemin['name'] , 90);
 			}
-			else{ 
-				$newId = $newCatId;
-			}
-					
-			$new_ajouter = array (
-
-			'nomp' => Input::get('nomp'),   
-			'descriptif' => Input::get('descriptif'),
-        	'categorie_id' => $newId,
-			'chemin' => $newChemin['name'],
-			);
-			//si bien ajouté
-			if ($ajout = Product::create($new_ajouter)){
-				Session::flash('status_success','Produit ajouté avec succès');
+			//si modification
+			if (isset($id) && $id != null){
+						
+				$prod = Product::find($id);		
+				if (($prod->chemin != $newChemin['name']) && ($newChemin['error']==0)){
+					File::delete($directory.$prod->chemin);
+					File::delete($directory.'tab-'.$prod->chemin);
+					$prod->chemin = $newChemin['name'];	
+				}
+				$prod->nomp = $newNomProduit;						
+				$prod->descriptif = $newDesc;			
+				$prod->categorie_id = $newCatId;			
+						
+				if ($prod->save()){
+					Session::flash('status_success','Produit modifié avec succès');				
+				}			
+				//sinon
+				else Session::flash('status_error','Le produit n\'a pas pu être modifié');
+			
+				
 				
 			}
-			//sinon
-			else Session::flash('status_error','Le produit n\'a pas pu être ajouté');
-		
+			//si ajout
+			else{
+				
+				if ($newSousCatId != null) {
+					$newId = $newSousCatId;
+				}
+				else{ 
+					$newId = $newCatId;
+				}
+						
+				$new_ajouter = array (
+	
+				'nomp' => Input::get('nomp'),   
+				'descriptif' => Input::get('descriptif'),
+				'categorie_id' => $newId,
+				'chemin' => $newChemin['name'],
+				);
+				//si bien ajouté
+				if ($ajout = Product::create($new_ajouter)){
+					Session::flash('status_success','Produit ajouté avec succès');
+					
+				}
+				//sinon
+				else Session::flash('status_error','Le produit n\'a pas pu être ajouté');
+			
 			}
 		}
 		return Redirect::to_action('products@products');
@@ -140,8 +162,10 @@ class Products_Controller extends Base_Controller {
 		for($i=0; $i<count($checked);$i++){
 			$produit = Product::find($checked[$i]);
 			$image = $produit->chemin;
+			
 			if($produit ->delete()){
 				File::delete($directory.$image);
+				File::delete($directory.'tab-'.$image);
 				$compt++;
 			}				
 		}
@@ -158,10 +182,5 @@ class Products_Controller extends Base_Controller {
 		}
 		
 		return Redirect::back();
-	}
-	public function get_retour(){
-	     return Redirect::to_action('admin@index');
-	}
-	
-		
+	}	
 }
