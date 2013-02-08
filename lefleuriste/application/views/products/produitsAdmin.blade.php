@@ -1,45 +1,58 @@
 @layout("base")
 
 @section('content')
-
-<div class="row-fluid">
-	     {{HTML::link_to_action('products@retour', 'Retour')}}	
-	<div class="span12">
-		<h2>Les produits</h2>
+<div class="span12">
+    @include('elements/menuadmin')
+</div>
+<div class="row-fluid">	     	
+	
+	<h2>Les produits</h2>
         
-		{{HTML::link_to_action('products.modifierProd','Ajouter',array(),array('class' => 'btn btn-success'))}}      
-		
-	</div>
-	{{Form::open('products/suppression','POST', array('id'=>'mainform'))}}
-	<input type="submit" value="Supprimer" class="btn btn-danger" onclick="return confirm('Etes-vous sûr de vouloir supprimer ces produits ?');">
+	{{HTML::link_to_action('products.modifierProd','Ajouter',array(),array('class' => 'btn btn-success'))}} 		
+
+	{{Form::open('products/suppression','POST', array('id'=>'formulaire'))}}
 	@if($products)
-        {{$products->links()}}
-		<table border="0" width="100%" cellpadding="0" cellspacing="0" id="product-table">
+        
+		<table>
+			<thead>
 				<tr>
-					<th class="table-header-check"><a id="toggle-all" ></a> </th>
-					<th class="table-header-repeat line-left minwidth-1">Produit</th>
-					<th class="table-header-repeat line-left">Catégories</th>
-					<th class="table-header-repeat line-left">Image</th>
-					<th class="table-header-options line-left">Options</th>
+					<th class="ch"><a id="toggle-all" ></a> </th>
+					<th>Produit</th>
+					<th>Catégories</th>
+					<th>Image</th>
+					<th class="ch">Options</th>
 				</tr>
-				@foreach($products->results as $p)
+			</thead>
+			<tbody>
+			@foreach($products->results as $p)
 				<tr>					
-					<td>{{Form::checkbox('select[]',$p->id)}}</td>
+					<td class="ch">{{Form::checkbox('select[]',$p->id)}}</td>
 					<td>{{$p->nomp}}</td>
 					<td>{{$p->categorie->nomc}}</td>
 					<td>{{HTML::image('public/images/tab-'.$p->chemin)}}</td>					
 
-					<td>{{HTML::link_to_action('products.modifierProd', 'Modifier',array('id'=>$p->id),array('class' => 'btn btn-success'))}}</td>		
-					
+					<td class="ch"><a href="{{URL::to_action('products.modifierProd',array('id'=>$p->id))}}">{{HTML::image('public/img/pencil.png', 'Modifier', array('title'=>'Modifier'))}}</a></td>		
 				</tr>
-				
 				@endforeach
+			</tbody>
+			<tfoot>
+			    <tr>
+					<td colspan="6">
+						<div class="actions">
+							{{Form::select('actions', $options,array('id'=>'actions'))}}
+							<input type="submit" value="OK" class="btn btn-success soumettre">
+						</div>
+						<!-- Pagination -->
+						{{$products->links()}}
+					</td>
+				<tr>
+			</tfoot>
 			</table>
 			
 			{{Form::token()}}
 			{{Form::close()}}
 
-		{{$products->links()}}
+		
 
 	@else
 		<h2>Aucun produit</h2>

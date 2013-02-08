@@ -61,6 +61,7 @@ Laravel\Autoloader::$aliases = $aliases;
 Autoloader::map(array(
 	'Base_Controller' => path('app').'controllers/base.php',
 	'RulesAjoutProduit' => path('app').'models/rules/rulesAjoutProduit.php',
+	'RulesModifProduit' => path('app').'models/rules/rulesModifProduit.php',
 	'RulesCategorie' => path('app').'models/rules/rulesCategorie.php',
 	'RulesUser' => path('app').'models/rules/rulesUser.php',
 ));

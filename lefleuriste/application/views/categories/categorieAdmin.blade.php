@@ -1,49 +1,59 @@
 @layout("base")
 
 @section('content')
-
-<div class="row-fluid">
-	{{HTML::link_to_action('categories@retour', 'Retour')}}	
-	<div class="span12">
-		<h2>Les catégories</h2>
-		{{HTML::link_to_action('categories@modifiercat', 'Ajouter',array(),array('class' => 'btn btn-success'))}}	
-	</div><!--/span12-->
+<div class="span12">
+    @include('elements/menuadmin')
+</div>
+<div class="row-fluid">	
 	
-	{{Form::open('categories/suppression','POST', array('id'=>'mainform'))}}
-        
-        <input type="submit" value="Supprimer" class="btn btn-danger" onclick="return confirm('Etes-vous sûr de vouloir supprimer ces catégories ?');">
+	<h2>Les catégories</h2>
+	{{HTML::link_to_action('categories@modifiercat', 'Ajouter',array(),array('class' => 'btn btn-success'))}}	
+	
+	{{Form::open('categories/suppression','POST', array('id'=>'formulaire'))}}       
        		
-
 	<!-- Affichage des catégories - tableau -->
-	@if($categories)
-		<!-- Pagination -->
-		{{$categories->links()}}
-		<table border="0" width="100%" cellpadding="0" cellspacing="0" id="product-table">
+	@if($categories)		
+		<table>
+			<thead>
 				<tr>
-					<th class="table-header-check"><a id="toggle-all" ></a> </th>
-					<th class="table-header-repeat line-left">Catégories</th>
-					<th class="table-header-repeat line-left">Catégorie mère</th>
-					<th class="table-header-repeat line-left">Option</th>
+					<th class="ch"><a id="toggle-all" ></a></th>
+					<th>Catégories</th>
+					<th>Catégorie mère</th>
+					<th class="ch">Modifier</th>
 				</tr>
+			</thead>
+			
 				@foreach($categories->results as $c)
-				<tr>					
-					<td>{{Form::checkbox('select[]',$c->id)}}</td>
+				<tr>								
+					<td class="ch">{{Form::checkbox('select[]',$c->id)}}</td>
 					<td>{{$c->nomc}}</td>
                                         <td>
 					@if($c->categorie_id!=null)
 						{{$c->parent_categorie->nomc}}
 					@endif
 					</td>
-                    <td>{{HTML::link_to_action('categories.modifierCat', 'Modifier',array('id'=>$c->id),array('class' => 'btn btn-success'))}}</td>
-				</tr>
+                    <td class="ch"><a href="{{URL::to_action('categories.modifierCat',array('id'=>$c->id))}}">{{HTML::image('public/img/pencil.png', 'Modifier', array('title'=>'Modifier'))}}</a></td>
+				</tr>			
 				@endforeach
-		</table>
+			
+			<tfoot>
+				<tr>
+					<td colspan="6">
+						<div class="actions">
+							{{Form::select('actions', $options,array('id'=>'actions'))}}
+							<input type="submit" value="OK" class="btn btn-success soumettre">
+						</div>
+					<!-- Pagination -->
+					{{$categories->links()}}
+					</td>
+				<tr>
+			</tfoot>
+		</table>		 
 			
 			{{Form::token()}}
 			{{Form::close()}}
 
-		<!-- Pagination -->
-		{{$categories->links()}}
+		
 	@else
 		<h2>Aucune catégorie</h2>
 	@endif

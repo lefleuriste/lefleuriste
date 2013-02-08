@@ -12,25 +12,22 @@
 <div class="container-fluid">
 
 	<div class="row-fluid">
-
-		<div class="span6">
-			<div class="config">
-				<a href="{{URL::to_action('products.products')}}" class="thumbnail">
-					{{HTML::image('public/img/produit.png')}}
-				</a> <!-- href thumbnail -->	
-			</div> <!-- /config -->
-			<p></p>
-		</div> <!-- span 6-->
+	
+    <ul class="shortcut-buttons-set">
+        
+        <li><a class="shortcut-button" href="{{URL::to_action('categories.categories')}}"><span>
+          {{HTML::image('public/img/icon_categories_menu.png')}}<br />
+          Gestion des catégories
+        </span></a></li>
+        
+        <li><a class="shortcut-button" href="{{URL::to_action('products.products')}}"><span>
+          {{HTML::image('public/img/icon_produits_menu.png')}}<br />
+          Gestion des produits
+        </span></a></li>  
+        
+	</ul><!-- End .shortcut-buttons-set -->
+		
 	</div> <!--/row -->
-		<div class="row-fluid">
-			<div class="span6">
-				<div class="config">
-					<a href="{{URL::to_action('categories.categories')}}" class="thumbnail">
-						{{HTML::image('public/img/categorie.png')}}
-					</a> <!-- href thumbnail -->	
-				</div> <!-- /config -->
-			</div> <!-- /span 6 -->
-		</div> <!--/row -->
 
 </div> <!--/container -->
 
