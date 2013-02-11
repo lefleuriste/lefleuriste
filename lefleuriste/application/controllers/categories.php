@@ -106,13 +106,6 @@ class Categories_Controller extends Base_Controller {
                     //si on choisit la case vide le champs categorie_id doit etre null 
                     if(Input::get('categorie_id')==0)
                     {    
-                        //on vérifie le nombre de catégorie limité à 4  
-                        $nbCat = Categorie::where_null('categorie_id')->count();
-                        if($nbCat>=4)
-                        {
-                            Session::flash('status_error','Le nombre de catégorie est limité à 4, vous n\'avez plus le droit d\'en ajouter.');
-                            return Redirect::back();;
-                        }
                         $newcatMereID=NULL; 
                      }
                     else{
@@ -133,10 +126,22 @@ class Categories_Controller extends Base_Controller {
 					
 					//modification d'une catégorie;
 					if (isset($id) && $id != null){	
-
+						
+						//on récupère le nombre de catégorie mère
+                        $nbCat = Categorie::where_null('categorie_id')->count();
+						
+						//on vérifie que la catégorie à modifier est une catégorie fille
+						$estCatFille = Categorie::where_not_null('categorie_id')->where('id','=',$id)->get();
+						
+						//Si une catégorie fille devient mere alors qu'il y a deja 4 categorie mere => message d'erreur
+						if($nbCat>=4 && !empty($estCatFille) && $newcatMereID == NULL)
+                        {
+                            Session::flash('status_error','Le nombre de catégorie mere est limité à 4, vous n\'avez plus le droit d\'en ajouter.');
+                            return Redirect::back();;
+                        }
+						
 						// on vérifie l'unicité du nom de la catégorie
 						$catExist=Categorie::where('nomc','=',$newNomCategorie)->where('id','!=',$id)->get();
-                    
 						if(!empty($catExist))
 						{
 							Session::flash('status_error','Ce nom de catégorie existe déjà');
