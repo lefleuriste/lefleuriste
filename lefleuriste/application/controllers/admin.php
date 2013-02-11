@@ -39,7 +39,8 @@ class Admin_Controller extends Base_Controller {
 			
 			//on redirige vers la page d'accueil de l'admin
 			return Redirect::to_action('admin.index');
+
 			} 
 	}//fin function post_modifier
-	
+
 }//fin controller
