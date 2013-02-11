@@ -11,11 +11,11 @@ Bienvenue chez nous :) -->
           <div class="row-fluid">
             <div class="span4">
 				<div class="presentation">
-					<h2>Bienvenue</h2>
-					<p>Le fleuriste vous accueille 
-					<strong>7 jours sur 7 </strong>
-					de <strong>8h30 à 20h30 </strong>dans un cadre agréable.</p>
-					<p> Découvrez de multiples compositions florales à offrir pour toutes occasions.</p>
+					<h3>Chez « le fleuriste », nous sommes fleuristes avant tout !</h3>
+					<p>Si l’étalage extérieur met en avant la fraîcheur et le choix, avec plus de <strong>50 variétés</strong>, l’intérieur de nos magasins est dédié au métier : bouquets et compositions florales, compositions de plantes… tout le savoir faire de <strong>nos fleuristes passionnés</strong> et diplômés s’y trouve.</p>
+					
+					<h3>Des fleurs simplement :</h3>
+					<p> Dénous n’avons pas de secret, seul notre volume d’achats nous permet de raccourcir la chaine d’achats et donc de gagner en fraîcheur et en qualité de tenue pour votre plus grande satisfaction.</p>
               
             </div><!--/span-->
 			</div>
@@ -24,10 +24,12 @@ Bienvenue chez nous :) -->
         	</div><!--/span-->
             <div class="span4">
 				<div class="presentation">
-					<h2>Le Concept</h2>
-					<p>Venez flâner, regarder, sentir et choisir vos fleurs dans nos magasins en libre service. </p>
-					<p>Vous y trouverez une très large gamme de fleurs et plantes, de la meilleure qualité et à un prix attractif.</p>
-					<p>Nous sommes ouverts 365 jours par an. Venez nous rencontrer !</p> 
+					<h3>Des Magasins où la fleur est à l’honneur sans chichi…</h2>
+					<p>Chez « <strong>le fleuriste</strong>, des fleurs simplement » nos magasins reflètent l’esprit de l’enseigne : </p>
+					<h4>Accueillants :</h4>
+					<p>... les équipes souriantes sont là pour vous conseiller et vous accompagner dans l’achat quotidien ou pour fabriquer des compositions pour des événements plus marquants.</p>
+					<h4>Ouverts à tous :</h4>
+					<p>... de <strong>8h30 à 20h30</strong> tous les jours et faciles d’accès…tout pour mieux servir nos clients !</p> 
 				</div>
 			</div><!--/span--> 
                      
