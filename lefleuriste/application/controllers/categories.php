@@ -221,7 +221,21 @@ class Categories_Controller extends Base_Controller {
 
 		//on parcourt les éléments du tableau
 		for($i=0; $i<count($checked);$i++){
-			if(Categorie::find($checked[$i])->delete()){
+			// on récupére la catégorie avec son identifiant
+			$catEnCours = Categorie::find($checked[$i]);
+			if(!empty($catEnCours)){
+				//on récupère les filles
+				$catFilles = Categorie::where('categorie_id','=',$catEnCours->id)->get();
+				
+				//on supprime toutes les filles
+				foreach($catFilles as $cf){
+					$cf->delete();
+				}
+				
+				//on supprime la mere
+				$catEnCours->delete();
+				
+				// on incrémente le compteur
 				$compt++;
 			}				
 		}
@@ -233,10 +247,7 @@ class Categories_Controller extends Base_Controller {
 		}elseif(count($checked) == $compt){
 			Session::flash('status_error','Vous n\'avez pas sélectionné de catégories à supprimer. Veuillez réessayer.');
 			
-		}else{
-			Session::flash('status_error','Un problème est survenu lors de la suppression des catégories. Veuillez réessayer.');
 		}
-
 		return Redirect::back();
 	}
 	
