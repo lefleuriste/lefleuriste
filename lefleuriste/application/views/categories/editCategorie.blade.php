@@ -47,9 +47,8 @@
                                         @foreach($cat_option as $k => $v)
                                         	<option value="{{$k}}">{{$v}}</option>
                                         @endforeach
-                                    </select>
+                                    </select>                             
                                 
-                                {{Form::select('categorie_id', $cat_option, Input::old('categorie_id'))}}
                                 @endif
                                 @if ($errors->has('categorie_id'))
                                     <span class="help-inline">{{$errors->first('categorie_id',':message')}}</span>
