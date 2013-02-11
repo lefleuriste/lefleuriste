@@ -58,7 +58,7 @@ return array(
 	"not_in"         => "Le champ sélectionné :attribute est invalide.",
 	"numeric"        => "Le champ :attribute doit être un nombre.",
 	"required"       => "Le champ :attribute est requis",
-	"same"           => "Le champ :attribute et :other doivent être identique.",
+	"same"           => "Les champs :attribute et :other doivent être identiques.",
 	"size"           => array(
 		"numeric" => "Le champ :attribute doit être :size.",
 		"file"    => "Le champ :attribute doit être de :size kilo-octets.",

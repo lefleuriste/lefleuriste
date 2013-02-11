@@ -15,7 +15,12 @@
 	
     <ul class="shortcut-buttons-set">
         
-        <li><a class="shortcut-button" href="{{URL::to_action('categories.categories')}}"><span>
+		<li><a class="shortcut-button" href="{{URL::to_action('admin.modifierMdp')}}"><span>
+          {{HTML::image('public/img/icon_categories_menu.png')}}<br />
+          Gestion du compte
+        </span></a></li>
+        
+		<li><a class="shortcut-button" href="{{URL::to_action('categories.categories')}}"><span>
           {{HTML::image('public/img/icon_categories_menu.png')}}<br />
           Gestion des catégories
         </span></a></li>
