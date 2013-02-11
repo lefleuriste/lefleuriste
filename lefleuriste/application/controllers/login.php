@@ -34,7 +34,9 @@ class Login_Controller extends Base_Controller {
 	public function get_logout(){
 		if(!Auth::guest()){
 			Auth::logout();
+			Session::flash('status_success','Vous êtes bien déconnecté.');
 		}
-		return View::make('login.logout');
+		
+		return Redirect::to_route('accueil');
 	}
 }

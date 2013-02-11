@@ -58,8 +58,7 @@
                     <a href="#" class="btn btn-success"><i class="icon-user" ></i> Mon Compte</a>
                   	<a href="#" class="btn btn-success dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="50" data-close-others="true"><span class="caret"></span></a>
                   		<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
-                        	@if(Auth::check() && Auth::user()->admin)
-                            	<li><i class="i"></i>Bienvenue {{Auth::user()->username}}</li>
+                        	@if(Auth::check() && Auth::user()->admin)                            	
                                 <li>{{HTML::link_to_action('admin','Administration')}}</li>
                                 <li class="divider"> </li>
                                 <li><a href="{{URL::to_action('login@logout')}}"> <i class="icon-ban-circle"></i>Déconnexion</a></li>
