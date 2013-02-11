@@ -43,7 +43,11 @@
       alert('Merci de sélectionner des éléments');
 
     }else if(action == 1 && checkboxes > 0){
-      ok = true;
+      var suppr = confirm("Attention ! Tous les produits liés à cette catégorie seront supprimés définitivement. Voulez-vous continuer ?");
+      if(suppr){
+        ok = true;
+      }
+      
     }
 
     return ok;    
