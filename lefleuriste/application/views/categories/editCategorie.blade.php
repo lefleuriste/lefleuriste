@@ -9,7 +9,7 @@
 		@else
 			<h2>Ajout d'une catégorie</h2>
 		@endif
-		
+		<hr class="sexy_line" />
 		{{Form::open('categories/modifierCat','POST',array('class'=>'form-horizontal'))}}
 			@if ($categorie!=null)
             	{{Form::hidden('idcat',$categorie->id)}}   

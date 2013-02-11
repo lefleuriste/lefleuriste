@@ -7,6 +7,7 @@
 <div class="row-fluid">	
 	
 	<h2>Les catégories</h2>
+    <hr class="sexy_line" />
 	{{HTML::link_to_action('categories@modifiercat', 'Ajouter',array(),array('class' => 'btn btn-success'))}}	
 	
 	{{Form::open('categories/suppression','POST', array('id'=>'formulaire'))}}       

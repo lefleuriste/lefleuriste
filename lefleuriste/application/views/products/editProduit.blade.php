@@ -11,7 +11,7 @@
 		@else
 			<h2>Ajout d'un Produit</h2>
 		@endif
-    
+    	<hr class="sexy_line" />
     {{Form::open_for_files('products/modifierProd','POST',array('class'=>'form-horizontal'))}}
     
     @if ($product!=null)

@@ -44,7 +44,8 @@
 		  
         @include('plugins.status')		
 		@yield('content')
-	</div> <!-- /container -->    
+	</div> <!-- /container --> 
+       
       	<!-- element footer-->
 		@render('elements/footer')	
      
