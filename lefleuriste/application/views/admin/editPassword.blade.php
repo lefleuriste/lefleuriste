@@ -7,7 +7,6 @@
 		<h2>Modification du Mot de Passe</h2>
 		
 		{{Form::open('admin/modifierMdp','POST',array('class'=>'form-horizontal'))}}
-	
 			<!-- Champ Username -->
 				<div class="control-group @if ($errors->has('username')) error @endif">
 				<div class="controls">
