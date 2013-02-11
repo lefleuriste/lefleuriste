@@ -5,6 +5,7 @@
 <div class="row-fluid">
 	<div class="span12">		
 		<h2>Modification du Mot de Passe</h2>
+        <hr class="sexy_line" />
 		
 		{{Form::open('admin/modifierMdp','POST',array('class'=>'form-horizontal'))}}
 			<!-- Champ Username -->

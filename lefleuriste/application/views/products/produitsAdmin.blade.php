@@ -7,7 +7,7 @@
 <div class="row-fluid">	     	
 	
 	<h2>Les produits</h2>
-        
+    <hr class="sexy_line" />    
 	{{HTML::link_to_action('products.modifierProd','Ajouter',array(),array('class' => 'btn btn-success'))}} 		
 
 	{{Form::open('products/suppression','POST', array('id'=>'formulaire'))}}
