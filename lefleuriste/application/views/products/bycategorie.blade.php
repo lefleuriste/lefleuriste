@@ -7,6 +7,7 @@
    		<div class="titre">
 			<h2> Nos {{Str::plural($categorie->nomc)}} </h2>
         </div>
+        <hr class="sexy_line" />
     </div> <!-- / span12 -->
 	@if($products)
    		<section class="image-gallery">
