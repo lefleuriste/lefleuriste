@@ -20,7 +20,7 @@ Bienvenue chez nous :) -->
             </div><!--/span-->
 			</div>
             <div class="span4">
-          		{{HTML::image('public/img/fleuraccueil.jpg')}}
+          		{{HTML::image('public/img/fleuraccueil.png')}}
         	</div><!--/span-->
             <div class="span4">
 				<div class="presentation">
