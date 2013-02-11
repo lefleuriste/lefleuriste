@@ -4,6 +4,15 @@ class Admin_Controller extends Base_Controller {
 
 	public $restful = true;
 	
+	public function __construct(){
+        parent::__construct();
+        
+        //filtre pour sécuriser les pages liées à l'administration
+		$this->filter('before','auth')->only(array('index','modifiermdp'));
+		$this->filter('before','csrf')->on('post');   
+    }
+	
+	
 	public function get_index()
 	{
 		

@@ -16,7 +16,7 @@
     <ul class="shortcut-buttons-set">
         
 		<li><a class="shortcut-button" href="{{URL::to_action('admin.modifierMdp')}}"><span>
-          {{HTML::image('public/img/icon_categories_menu.png')}}<br />
+          {{HTML::image('public/img/icon_user_menu.png')}}<br />
           Gestion du compte
         </span></a></li>
         
