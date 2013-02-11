@@ -35,7 +35,7 @@ class Admin_Controller extends Base_Controller {
 			Session::flash('status_success','Modifications réalisées avec succès');
 				
 			return Redirect::to_action('admin.index');
-			}
+		}
 		
 	  	
 	 
