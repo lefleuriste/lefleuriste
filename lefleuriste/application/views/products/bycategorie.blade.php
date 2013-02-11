@@ -5,27 +5,22 @@
 <div class="row-fluid">
 	<div class="span12">
    		<div class="titre">
-		<h2> Nos {{Str::plural($categorie->nomc)}} </h2>
+			<h2> Nos {{Str::plural($categorie->nomc)}} </h2>
         </div>
+        <hr class="sexy_line" />
     </div> <!-- / span12 -->
 	@if($products)
-   		<ul class="thumbnails">
-        <div class="row-fluid">
+   		<section class="image-gallery">
 
 	    @for($i=1; $i<=count($products->results); $i++)
 			
-			<li class="span3">
-					<!-- image -->
-					<a href="#" class="thumbnail">
-
-						{{HTML::image('public/images/'.$products->results[$i-1]->chemin)}}
-
-						<div class="caption">
-							<p><h4>{{$products->results[$i-1]->nomp}}</h4></p>
-
-						</div> <!-- /caption -->
-					</a>
-			</li> <!-- /span3 -->		
+			
+					<!-- image -->					
+                    <figure tabindex="{{$i}}">
+                    	{{HTML::image('public/images/'.$products->results[$i-1]->chemin)}}
+                    	
+                    </figure>
+					
 			
 		@if($i>0 AND $i%4==0)
            </div> <!-- /row-fluid -->
@@ -35,8 +30,7 @@
 		   <div class="row-fluid">	
 		@endif	
     @endfor
-	</div> <!-- /row-fluid -->
-	</ul>
+	</section>
 
     <!-- Pagination -->
 	{{$products->links()}}
