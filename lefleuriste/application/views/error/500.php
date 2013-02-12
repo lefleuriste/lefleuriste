@@ -100,24 +100,19 @@
 	<div class="wrapper">
 		<div class="error-spacer"></div>
 		<div role="main" class="main">
-			<?php $messages = array('Ouch.', 'Oh no!', 'Whoops!'); ?>
 
-			<h1><?php echo $messages[mt_rand(0, 2)]; ?></h1>
-
-			<h2>Server Error: 500 (Internal Server Error)</h2>
+			<h2>Erreur 500 (Internal Server Error)</h2>
 
 			<hr>
 
-			<h3>What does this mean?</h3>
+			<h3>Qu'est ce que cela signifie ?</h3>
 
 			<p>
-				Something went wrong on our servers while we were processing your request.
-				We're really sorry about this, and will work hard to get this resolved as
-				soon as possible.
+				Le serveur Web n'est pas en mesure de traiter la requête.
 			</p>
 
 			<p>
-				Perhaps you would like to go to our <?php echo HTML::link('/', 'home page'); ?>?
+				Retournez à l'accueil :  <?php echo HTML::link('/', 'Le Fleuriste'); ?>
 			</p>
 		</div>
 	</div>
