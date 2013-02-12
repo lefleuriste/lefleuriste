@@ -1,4 +1,14 @@
 (function($){ 
+
+   //zoom
+  $('.zoom').live('hover', function(){              
+      $(this).photoZoom();
+  });
+
+  $('.zoom').live('click', function(e){              
+        e.preventDefault();
+  });
+
   //gestion des sous catégories pour la fonction modifier
   $('.ajaxList').live('change',function(event){
     
@@ -53,6 +63,8 @@
     return ok;    
     
   });
+
+
 
 
    

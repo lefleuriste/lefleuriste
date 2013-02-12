@@ -13,14 +13,13 @@
    		<section class="image-gallery">
 
 	    @for($i=1; $i<=count($products->results); $i++)
-			
-			
+			<li class="span3">
 					<!-- image -->					
-                    <figure tabindex="{{$i}}">
-                    	{{HTML::image('public/images/'.$products->results[$i-1]->chemin)}}
-                    	
-                    </figure>
-					
+					<a href="#" class="zoom thumbnail">						
+	                    <!-- image -->		
+	            		<img src="{{URL::base().'/public/images/'.$products->results[$i-1]->chemin}}"/>
+            		</a>            		
+            </li> <!-- /span3 --> 				
 			
 		@if($i>0 AND $i%4==0)
            </div> <!-- /row-fluid -->
