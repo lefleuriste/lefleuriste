@@ -1,4 +1,7 @@
 (function($){ 
+
+  
+
   //gestion des sous catégories pour la fonction modifier
   $('.ajaxList').live('change',function(event){
     
@@ -53,6 +56,8 @@
     return ok;    
     
   });
+
+
 
 
    

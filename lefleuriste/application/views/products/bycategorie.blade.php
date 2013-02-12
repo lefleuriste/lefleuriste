@@ -11,16 +11,14 @@
     </div> <!-- / span12 -->
 	@if($products)
    		<section class="image-gallery">
+        	<div class="row-fluid">
 
 	    @for($i=1; $i<=count($products->results); $i++)
-			
-			
+				<figure tabindex="{{$i}}">
 					<!-- image -->					
-                    <figure tabindex="{{$i}}">
-                    	{{HTML::image('public/images/'.$products->results[$i-1]->chemin)}}
-                    	
-                    </figure>
-					
+					<img src="{{URL::base().'/public/images/'.$products->results[$i-1]->chemin}}"/>
+            		           		
+            	</figure>			
 			
 		@if($i>0 AND $i%4==0)
            </div> <!-- /row-fluid -->
@@ -30,8 +28,8 @@
 		   <div class="row-fluid">	
 		@endif	
     @endfor
+	</div> <!-- /row-fluid -->
 	</section>
-
     <!-- Pagination -->
 	{{$products->links()}}
 

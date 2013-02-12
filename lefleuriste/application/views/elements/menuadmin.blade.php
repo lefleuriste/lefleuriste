@@ -15,4 +15,9 @@
           Gestion des produits
         </span></a></li>  
         
+        <li><a class="shortcut-button" href="{{URL::to_action('login.logout')}}"><span>
+          {{HTML::image('public/img/icon_logout.png')}}<br />
+          Déconnexion
+        </span></a></li> 
+        
 </ul><!-- End .shortcut-buttons-set -->
