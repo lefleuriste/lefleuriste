@@ -204,8 +204,19 @@
 		margin-top:150px;		
 		text-align:center;
 	}
+	.muted_credit a{
+		color:#ddd;
+		text-decoration:none;
+	}
 	
-
+	.muted_credit a:hover{
+		text-decoration:underline;
+	}
+	
+	.muted_credit p.copyright{
+		font-style:italic;
+		font-size:12px;
+	}
 
 #toggle-all {
 		display: block;
