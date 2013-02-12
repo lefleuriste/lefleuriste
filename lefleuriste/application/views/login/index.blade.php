@@ -12,11 +12,13 @@
 				
                 <div class="control-group">
       			<div class="controls">
+                <label id="username"> Nom d'utilisateur </label>
                 <input type="text" name="username" placeholder="Nom d'utilisateur" />
 				</div>
                 </div>
                 <div class="control-group">
 				<div class="controls">
+                <label id="password"> Mot de passe </label>
                 <input type="password" name="password" placeholder="Mot de passe" />
 				</div>
 				</div>
