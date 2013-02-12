@@ -12,15 +12,16 @@
       /*color: #5a5a5a;*/
     }
 	
-	
+	/* HEADER */
 	#header{
-		min-height:282px;
-		background-color: #FEFFF9;		
+		min-height:350px;
+		background-color: #FEFFF9;	
+		margin-bottom:30px;	
 		/*margin-bottom:30px;*/
 		
 	}
 	
-
+	/* TITRES */
 	h2,h3 {
 	font-family: 'Kreon', serif;
 	color: #ba5581;
@@ -60,7 +61,6 @@
     -------------------------------------------------- */
 
     /* Special class on .container surrounding .navbar, used for positioning it into place. */
-	
 		
 	
     .navbar {
@@ -118,18 +118,34 @@
 	
 	/* CUSTOMIZE THE BANNIERE */
 	
-	.banniere {
-	  position: relative;
-            
-      
-	  height: 350px;      
-	  margin: 0 auto;
+	.top {
+	  height: 350px;	  
+	  position: absolute;  
 	  background: url('../img/banniere2.png') no-repeat;
-	  border: 0;
-	  margin-bottom:30px;
+	  /*z-index: -1; */
+	  left:50%;
+	  margin-left:-486px;
 	  
-      
+	  
 	}
+	
+	.banniere {
+	 /* position: relative;   */ 
+	  height: 350px;   
+	  border: 0;	  
+	  margin: 0 auto; 
+	  
+	    
+	}
+		
+	.logo {
+		/*text-align: center;*/
+		/*margin-right: 30px;*/
+		margin-top: 70px;		
+		width: 972px;
+	}
+	/* *************************** */
+	
 	
 	.container{
 	   width:974px;
