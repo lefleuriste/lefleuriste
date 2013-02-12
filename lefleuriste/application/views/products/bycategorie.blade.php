@@ -10,12 +10,13 @@
         <hr class="sexy_line" />
     </div> <!-- / span12 -->
 	@if($products)
-   		<section class="image-gallery">
+   		<ul class="thumbnails">
+        	<div class="row-fluid">
 
 	    @for($i=1; $i<=count($products->results); $i++)
 			<li class="span3">
 					<!-- image -->					
-					<a href="#" class="zoom thumbnail">						
+					<a href="" class="zoom thumbnail">						
 	                    <!-- image -->		
 	            		<img src="{{URL::base().'/public/images/'.$products->results[$i-1]->chemin}}"/>
             		</a>            		
@@ -29,7 +30,8 @@
 		   <div class="row-fluid">	
 		@endif	
     @endfor
-	</section>
+	</div> <!-- /row-fluid -->
+	</ul>
 
     <!-- Pagination -->
 	{{$products->links()}}
