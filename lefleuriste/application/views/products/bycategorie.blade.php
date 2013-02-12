@@ -10,17 +10,15 @@
         <hr class="sexy_line" />
     </div> <!-- / span12 -->
 	@if($products)
-   		<ul class="thumbnails">
+   		<section class="image-gallery">
         	<div class="row-fluid">
 
 	    @for($i=1; $i<=count($products->results); $i++)
-			<li class="span3">
+				<figure tabindex="{{$i}}">
 					<!-- image -->					
-					<a href="" class="zoom thumbnail">						
-	                    <!-- image -->		
-	            		<img src="{{URL::base().'/public/images/'.$products->results[$i-1]->chemin}}"/>
-            		</a>            		
-            </li> <!-- /span3 --> 				
+					<img src="{{URL::base().'/public/images/'.$products->results[$i-1]->chemin}}"/>
+            		           		
+            	</figure>			
 			
 		@if($i>0 AND $i%4==0)
            </div> <!-- /row-fluid -->
@@ -31,8 +29,7 @@
 		@endif	
     @endfor
 	</div> <!-- /row-fluid -->
-	</ul>
-
+	</section>
     <!-- Pagination -->
 	{{$products->links()}}
 

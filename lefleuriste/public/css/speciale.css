@@ -350,8 +350,8 @@ figure
   border: 10px solid white;
   -webkit-box-shadow: 0 3px 10px #ccc;
   -moz-box-shadow: 0 3px 10px #ccc;
-  -webkit-transform: rotate(5deg);
-  -moz-transform: rotate(5deg);
+  -webkit-transform: rotate(0deg);
+  -moz-transform: rotate(0deg);
   -webkit-transition: all 0.7s ease;
   -moz-transition: all 1s ease;
   position: relative;
@@ -368,14 +368,14 @@ figcaption
 
 figure:hover
 {
-  -webkit-transform: rotate(-1deg); -moz-transform: rotate(1deg);
+  -webkit-transform: rotate(0deg); -moz-transform: rotate(0deg);
   -webkit-box-shadow: 0 3px 10px #666; -moz-box-shadow: 0 3px 10px #666;
 }
 
 figure:focus
 {
   outline: none;
-  -webkit-transform: rotate(-3deg) scale(4); -moz-transform: rotate(-3deg) scale(4);
+  -webkit-transform: rotate(0deg) scale(3); -moz-transform: rotate(0deg) scale(3);
    -webkit-box-shadow: 0 3px 10px #666; -moz-box-shadow: 0 3px 10px #666;
   z-index: 9999;
 }
