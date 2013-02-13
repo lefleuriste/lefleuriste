@@ -21,6 +21,22 @@
 		
 	}
 	
+	.fete{
+		min-height:100px;
+		width:100%;
+		background: url('../img/fete.png') no-repeat;
+	}
+	
+	.fete p{
+		text-align:center;
+		padding-top:15px;
+		font-family:"Comic Sans MS", cursive;
+		font-size:16px;
+		font-style:italic;
+		font-weight:bold;
+		color:#ba5581;
+	}
+	
 	/* TITRES */
 	h2,h3 {
 	font-family: 'Kreon', serif;

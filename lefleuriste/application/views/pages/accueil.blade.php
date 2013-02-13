@@ -7,7 +7,12 @@
 Bienvenue chez nous :) -->
 	<div class="container-fluid">
       <div class="row-fluid">    
-        <div class="span12">        
+        <div class="span12"> 
+          @if(isset($saint)) 
+          	<div class="fete">
+          		<p>{{$saint[0]->fete}}</p>
+          	</div>
+          @endif              
           <div class="row-fluid">
             <div class="span4">
 				<div class="presentation">
