@@ -44,7 +44,7 @@ class Admin_Controller extends Base_Controller {
 			$users->save();
        	 	
 			//on affiche un message de confirmation de modification
-			Session::flash('status_success','Modifications réalisées avec succès');
+			Session::flash('status_success','Modifications réalisées avec succès.');
 			
 			//on redirige vers la page d'accueil de l'admin
 			return Redirect::to_action('admin.index');
