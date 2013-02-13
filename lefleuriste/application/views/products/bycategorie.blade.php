@@ -13,10 +13,10 @@
    		<section class="image-gallery">
         	<div class="row-fluid">
 
-	    @for($i=1; $i<=count($products->results); $i++)
+	    @for($i=1; $i<=count($products); $i++)
 				<figure tabindex="{{$i}}">
 					<!-- image -->					
-					<img src="{{URL::base().'/public/images/'.$products->results[$i-1]->chemin}}"/>
+					<img src="{{URL::base().'/public/images/'.$products[$i-1]->chemin}}"/>
             		           		
             	</figure>			
 			
@@ -29,11 +29,7 @@
 		@endif	
     @endfor
 	</div> <!-- /row-fluid -->
-	</section>
-    <!-- Pagination -->
-	{{$products->links()}}
-
-	@endif
+	</section>	@endif
 </div> <!-- row-fluid -->
 
 @endsection

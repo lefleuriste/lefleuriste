@@ -16,17 +16,17 @@ class Products_Controller extends Base_Controller {
 	 * Récupère tous les produits dans la base de données et pagine le tableau
 	 * @return une vue contenant les produits récupérés
 	 */
-	public function get_products($per_page=5){
+	public function get_products($per_page=20){
 		
 		$products = Product::order_by('nomp')->paginate($per_page);
 		//options de la liste déroulante des actions
 		$options = array('0'=>'Choisissez une action', '1'=>'Supprimer');   
-		return View::make('products.produitsAdmin')->with('products',$products)->with('options',$options);
+		return View::make('products.produitsadmin')->with('products',$products)->with('options',$options);
 	}	
 		
-	public function get_ProductByCategorie($url, $id = null, $per_page=10)
+	public function get_ProductByCategorie($url, $id = null)
 	{	
-		$products = Product::where('categorie_id', '=',$id)->order_by('nomp')->paginate($per_page);		
+		$products = Product::where('categorie_id', '=',$id)->order_by('nomp')->get();	
 		$cat= Categorie::find($id);
 		return View::make('products.bycategorie')->with('products',$products)->with('categorie',$cat);
 	}
@@ -47,10 +47,10 @@ class Products_Controller extends Base_Controller {
 			else {
 				$cat_mere = $cat_prod;
 			}
-			return View::make('products.editProduit')->with('product',$prod)->with('cat_option',$cat_option)->with('sous_cat_option',$sous_cat_option)->with('cat_mere',$cat_mere);
+			return View::make('products.editproduit')->with('product',$prod)->with('cat_option',$cat_option)->with('sous_cat_option',$sous_cat_option)->with('cat_mere',$cat_mere);
 		}
 		else {
-			return View::make('products.editProduit')->with('product',null)->with('cat_option',$cat_option)->with('sous_cat_option',$sous_cat_option);
+			return View::make('products.editproduit')->with('product',null)->with('cat_option',$cat_option)->with('sous_cat_option',$sous_cat_option);
 		}
 	}
 	
@@ -143,7 +143,7 @@ class Products_Controller extends Base_Controller {
 			
 			}
 		}
-		return Redirect::to_action('products@products');
+		return Redirect::to_action('products.products');
 	 
 	}
 

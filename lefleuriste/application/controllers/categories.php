@@ -17,12 +17,12 @@ class Categories_Controller extends Base_Controller {
 	 * @return une vue contenant les catégories
 	 */
 
-	public function get_categories($per_page=4) {
+	public function get_categories($per_page=20) {
 
 		$categories = Categorie::order_by('categorie_id')->paginate($per_page); 
 		//options de la liste déroulante des actions
 		$options = array('0'=>'Choisissez une action', '1'=>'Supprimer');       
-		return View::make('categories.categorieAdmin')->with('categories',$categories)->with('options',$options); 
+		return View::make('categories.categorieadmin')->with('categories',$categories)->with('options',$options); 
 
 	}
 
@@ -64,11 +64,11 @@ class Categories_Controller extends Base_Controller {
 			$cat= Categorie::find($id);		
 	
 
-			return View::make('categories.editCategorie')->with('categorie',$cat)->with('cat_option',$cat_option);
+			return View::make('categories.editcategorie')->with('categorie',$cat)->with('cat_option',$cat_option);
 		}
 		else {
 
-		return View::make('categories.editCategorie')->with('categorie',null)->with('cat_option',$cat_option);
+		return View::make('categories.editcategorie')->with('categorie',null)->with('cat_option',$cat_option);
 		}
 	}
 	
