@@ -16,7 +16,7 @@ class Products_Controller extends Base_Controller {
 	 * Récupère tous les produits dans la base de données et pagine le tableau
 	 * @return une vue contenant les produits récupérés
 	 */
-	public function get_products($per_page=20){
+	public function get_products($per_page=10){
 		
 		$products = Product::order_by('nomp')->paginate($per_page);
 		//options de la liste déroulante des actions

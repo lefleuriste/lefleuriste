@@ -17,7 +17,7 @@ class Categories_Controller extends Base_Controller {
 	 * @return une vue contenant les catégories
 	 */
 
-	public function get_categories($per_page=20) {
+	public function get_categories($per_page=10) {
 
 		$categories = Categorie::order_by('categorie_id')->paginate($per_page); 
 		//options de la liste déroulante des actions
