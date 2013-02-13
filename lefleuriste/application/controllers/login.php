@@ -26,7 +26,7 @@ class Login_Controller extends Base_Controller {
 			}
 		  
 	  } else {
-		  Session::flash('status_error','login ou mot de passe incorrect.');
+		  Session::flash('status_error','Username ou Mot de passe incorrect.');
 		  return Redirect::back();
 	  }
 	}
@@ -34,7 +34,7 @@ class Login_Controller extends Base_Controller {
 	public function get_logout(){
 		if(!Auth::guest()){
 			Auth::logout();
-			Session::flash('status_success','Vous êtes bien déconnecté.');
+			Session::flash('status_success','Vous avez été déconnecté.');
 		}
 		
 		return Redirect::to_route('accueil');

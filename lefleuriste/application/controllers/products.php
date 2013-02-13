@@ -108,10 +108,10 @@ class Products_Controller extends Base_Controller {
 				$prod->categorie_id = $newCatId;			
 						
 				if ($prod->save()){
-					Session::flash('status_success','Produit modifié avec succès');				
+					Session::flash('status_success','Produit modifié avec succès.');				
 				}			
 				//sinon
-				else Session::flash('status_error','Le produit n\'a pas pu être modifié');
+				else Session::flash('status_error','Le produit n\'a pas pu être modifié.');
 			
 				
 				
@@ -135,11 +135,11 @@ class Products_Controller extends Base_Controller {
 				);
 				//si bien ajouté
 				if ($ajout = Product::create($new_ajouter)){
-					Session::flash('status_success','Produit ajouté avec succès');
+					Session::flash('status_success','Produit ajouté avec succès.');
 					
 				}
 				//sinon
-				else Session::flash('status_error','Le produit n\'a pas pu être ajouté');
+				else Session::flash('status_error','Le produit n\'a pas pu être ajouté.');
 			
 			}
 		}
@@ -172,10 +172,10 @@ class Products_Controller extends Base_Controller {
 
 		//on vérifie si les produits supprimés correspondent au numéro du compteur
 		if(count($checked) == $compt and $compt != 0){
-			Session::flash('status_success','Tous les produits ont été supprimés avec succès.');
+			Session::flash('status_success','Tous les produits sélectionnés ont été supprimé avec succès.');
 			
 		}elseif(count($checked) == $compt){
-			Session::flash('status_error','Vous n\'avez pas sélectionné de produits à supprimer. Veuillez réessayer.');
+			Session::flash('status_error','Vous n\'avez pas sélectionné de produit à supprimer.');
 			
 		}else{
 			Session::flash('status_error','Un problème est survenu lors de la suppression des produits. Veuillez réessayer.');

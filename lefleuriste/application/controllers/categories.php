@@ -36,7 +36,7 @@ class Categories_Controller extends Base_Controller {
 		$categories = DB::query('SELECT id, nomc FROM categories WHERE categorie_id=?',array($id));
 		if(empty($categories)){
 			$return = array(
-				'error'=> "Il n'y a pas de sous catégories liées à cette catégorie"
+				'error'=> "Il n'y a pas de sous catégorie liée à cette catégorie."
 			);
 		}else{
 			$return = array(
@@ -136,7 +136,7 @@ class Categories_Controller extends Base_Controller {
 						//Si une catégorie fille devient mere alors qu'il y a deja 4 categorie mere => message d'erreur
 						if($nbCat>=4 && !empty($estCatFille) && $newcatMereID == NULL)
                         {
-                            Session::flash('status_error','Le nombre de catégorie mere est limité à 4, vous n\'avez plus le droit d\'en ajouter.');
+                            Session::flash('status_error','Nombre maximum de catégorie mère atteinte.');
                             return Redirect::back();;
                         }
 						
@@ -144,7 +144,7 @@ class Categories_Controller extends Base_Controller {
 						$catExist=Categorie::where('nomc','=',$newNomCategorie)->where('id','!=',$id)->get();
 						if(!empty($catExist))
 						{
-							Session::flash('status_error','Ce nom de catégorie existe déjà');
+							Session::flash('status_error','Ce nom de catégorie existe déjà.');
 							return Redirect::back(); 
 						}
 					
@@ -159,6 +159,10 @@ class Categories_Controller extends Base_Controller {
 						// modification de la catégorie mere
 					    $cat->categorie_id = $newcatMereID;
 					    $cat->save();
+						
+						//on affiche un message de confirmation d'ajout puis on redirige
+						Session::flash('status_success','Catégorie modifiée avec succès.');
+						return Redirect::to_action('categories/categories');
 					}
 			
 			        //ajout d'une catégorie
@@ -170,7 +174,7 @@ class Categories_Controller extends Base_Controller {
 							//on vérifie le nombre de catégorie limité à 4  
 							$nbCat = Categorie::where_null('categorie_id')->count();
 							if($nbCat>=4){
-								Session::flash('status_error','Le nombre de catégorie est limité à 4, vous n\'avez plus le droit d\'en ajouter.');
+								Session::flash('status_error','Nombre maximum de catégorie mère atteinte.');
 								return Redirect::back();;
 							}
 							$newcatMereID=Null;
@@ -183,7 +187,7 @@ class Categories_Controller extends Base_Controller {
 						$catExist=Categorie::where('nomc','=',$newNomCategorie)->get();
                     
 						if(!empty($catExist)){
-							Session::flash('status_error','Ce nom de catégorie existe déjà');
+							Session::flash('status_error','Ce nom de catégorie existe déjà.');
 							return Redirect::back(); 
 						}
 						
@@ -194,10 +198,12 @@ class Categories_Controller extends Base_Controller {
 						);
 		
 						if ($cat = Categorie::create($new_cat)){
+							//on affiche un message de confirmation d'ajout puis on redirige
+							Session::flash('status_success','Catégorie ajoutée avec succès.');
 							return Redirect::to_action('categories/categories');
 						}
 						else {
-							Session::flash('status_error','La catégorie n\'a pas pu être ajoutée');
+							Session::flash('status_error','La catégorie n\'a pas pu être ajoutée.');
 						}		
 					}
 					return Redirect::to_action('categories/categories');
@@ -242,12 +248,15 @@ class Categories_Controller extends Base_Controller {
 
 		//on vérifie si les catégories supprimés correspondent au numéro du compteur
 		if(count($checked) == $compt and $compt != 0){
-			Session::flash('status_success','Toutes les catégories ont été supprimées avec succès.');
+			Session::flash('status_success','Toutes les catégories sélectionnées ont été supprimé avec succès.');
 		
 		}elseif(count($checked) == $compt){
-			Session::flash('status_error','Vous n\'avez pas sélectionné de catégories à supprimer. Veuillez réessayer.');
+			Session::flash('status_error','Vous n\'avez pas sélectionné de catégorie à supprimer.');
 			
+		}else{
+			Session::flash('status_error','Un problème est survenu lors de la suppression des catégories. Veuillez réessayer.');
 		}
+		
 		return Redirect::back();
 	}
 	
