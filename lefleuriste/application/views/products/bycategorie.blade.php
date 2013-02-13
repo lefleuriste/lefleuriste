@@ -5,7 +5,7 @@
 <div class="row-fluid">
 	<div class="span12">
    		<div class="titre">
-			<h2> Nos {{Str::plural($categorie->nomc)}} </h2>
+			<h2>{{Str::plural($categorie->nomc)}}</h2>
         </div>
         <hr class="sexy_line" />
     </div> <!-- / span12 -->

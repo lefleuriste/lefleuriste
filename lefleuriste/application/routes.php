@@ -43,13 +43,9 @@ Route::controller(Controller::detect());
 Route::get('accueil',array('as'=>'accueil', 'uses'=>'pages@accueil'));
 Route::get('catalogue',array('as'=>'catalogue', 'uses'=>'pages@catalogue'));
 Route::get('contact',array('as'=>'contact', 'uses'=>'pages@contact'));
-Route::get('bycategorie/(:any)/(:num)',array('as'=>'bycategorie', 'uses'=>'products@ProductByCategorie'));
+Route::get('categorie/(:any)/(:num)',array('as'=>'bycategorie', 'uses'=>'products@ProductByCategorie'));
 Route::get('connexion',array('as'=>'connexion', 'uses'=>'login@index'));
 Route::get('deconnexion',array('as'=>'deconnexion', 'uses'=>'login@logout'));
-Route::get('inscription',array('as'=>'inscription', 'uses'=>'inscription@inscription'));
-Route::post('inscription',array('as'=>'inscription', 'uses'=>'inscription@inscription'));
-
-
 
 
 /*
