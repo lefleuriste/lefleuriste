@@ -14,13 +14,12 @@ class Base_Controller extends Controller {
         Asset::container('header')->add('jquery', 'public/js/jquery.min.js');
         Asset::container('header')->add('jquery-ui', 'public/js/ui.core.js');
         Asset::container('header')->add('jquery-ui-checkbox', 'public/js/ui.checkbox.js');
-
         Asset::container('header')->add('bootstrap', 'public/js/bootstrap.js');
         Asset::container('header')->add('bootstrap-dropdown', 'public/js/twitter-bootstrap-hover-dropdown.min.js');		   
 	    Asset::container('header')->add('bootstrap-trans', 'public/js/bootstrap-transition.js');
-	    Asset::container('header')->add('ckeckbox', 'public/js/checkbox.js');
-	    Asset::container('header')->add('zoom', 'public/js/photoZoom.min.js');		
+	    Asset::container('header')->add('ckeckbox', 'public/js/checkbox.js');	   	
 		Asset::container('header')->add('app', 'public/js/app.js');
+		
 	    parent::__construct();
 	}
 

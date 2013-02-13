@@ -3,6 +3,17 @@ SetEnv REGISTER_GLOBALS
 SetEnv MAGIC_QUOTES 0
 SetEnv REGISTER_GLOBALS 0
 
+<filesmatch ".(php|html|css|js)$">
+	SetOutputFilter DEFLATE
+</filesmatch>
+
+<ifmodule mod_expires.c>
+	<filesmatch ".(jpg|jpeg|png|gif|js|css|swf|ico)$">
+		ExpiresActive on
+		ExpiresDefault "access plus 1 months"
+	</filesmatch>
+</ifmodule>
+
 Options +FollowSymLinks
 RewriteEngine on
 

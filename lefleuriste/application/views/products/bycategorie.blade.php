@@ -20,7 +20,7 @@
             		           		
             	</figure>			
 			
-		@if($i>0 AND $i%4==0)
+		@if($i>0 AND $i%6==0)
            </div> <!-- /row-fluid -->
 		   <div class="span12">
 		   </div>	<!-- /span12 -->
