@@ -10,11 +10,23 @@ class Login_Controller extends Base_Controller {
 		$this->filter('before','auth')->only(array('logout'));
 		$this->filter('before','csrf')->on('post');   
     }
-   
+	
+	/**
+	 * Recuperation de la page de login
+	 * 
+	 * @return une view avec la page de login
+	 */   
 	public function get_index(){		
     	return View::make('login.index');
 	}
 	
+	/**
+	 * Login sur le côté administration
+	 * Récupération des données du formulaire de login
+	 * @return Redirige l'utilisateur vers la formulaire avec les erreurs si il y a des erreurs
+	 *         Redirige vers la page principal d'administration
+	 *
+	 */
 	public function post_index(){
 	  $creds = array(
 		  'username' => Input::get('username'),
@@ -31,6 +43,11 @@ class Login_Controller extends Base_Controller {
 	  }
 	}
 	
+	/**
+	 * Logout sur le côté administration
+	 * 
+	 * @return Redirige l'utilisateur vers la page d'accueil avec une message de succes
+	 */
 	public function get_logout(){
 		if(!Auth::guest()){
 			Auth::logout();

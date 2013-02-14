@@ -13,11 +13,24 @@ class Admin_Controller extends Base_Controller {
     }
 	
 	
+	/**
+	 * Récupération de la page principal de l'administration
+	 * @return une vue contenant la page admin
+	 */
+	
 	public function get_index()
 	{
 		//on appelle la page d'accueil de l'admin
 		return View::make('admin.index');
 	}
+	
+	
+	/**
+	 * Récupération de la page pour modifier le compte admin
+	 * modification de mot de pass
+	 * modification d'user
+	 * @return une vue contenant la page de modification
+	 */
 
 	public function get_modifierMdp()
 	{	
@@ -25,6 +38,14 @@ class Admin_Controller extends Base_Controller {
 		$users = User::find(1);
 		return View::make('admin.editPassword')->with('users',$users);	
 	}
+	
+	/**
+	 * Modification du compte administrateur
+	 * modification de mot de pass
+	 * modification d'user
+	 * @return Redirige l'utilisateur vers le formulaire avec les erreurs si il y a des erreurs
+	 *         Redirige vers la page principal d'administration
+	 */
 	
 	public function post_modifierMdp()
 	{
