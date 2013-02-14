@@ -24,11 +24,26 @@ class Products_Controller extends Base_Controller {
 		return View::make('products.produitsadmin')->with('products',$products)->with('options',$options);
 	}	
 		
-	public function get_ProductByCategorie($url, $id = null)
+	public function get_ProductByCategorie($url)
 	{	
-		$products = Product::where('categorie_id', '=',$id)->order_by('nomp')->get();	
-		$cat= Categorie::find($id);
-		return View::make('products.bycategorie')->with('products',$products)->with('categorie',$cat);
+		if(isset($url)){
+			$products = DB::table('products')
+    			->join('categories', 'products.categorie_id', '=', 'categories.id')
+    			->where('categories.slug', '=', $url)
+    			->order_by('products.nomp')
+    			->get();
+			
+			$cat= DB::table('categories')->where('categories.slug', '=', $url)->only('categories.nomc');
+
+			if(empty($products) && empty($cat)){
+				return Response::error('404');
+			}
+			return View::make('products.bycategorie')->with('products',$products)->with('categorie',$cat);
+		}else{
+			return Response::error('404');
+		}
+		
+		
 	}
 	
 	public function get_modifierProd($id=null){		

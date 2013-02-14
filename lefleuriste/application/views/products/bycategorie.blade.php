@@ -4,15 +4,15 @@
 
 <div class="row-fluid">
 	<div class="span12">
-   		<div class="titre">
-			<h2>{{Str::plural($categorie->nomc)}}</h2>
+   		<div class="titre">   			
+			<h2>{{Str::plural($categorie)}}</h2>
         </div>
         <hr class="sexy_line" />
     </div> <!-- / span12 -->
 	@if($products)
    		<section class="image-gallery">
         	<div class="row-fluid">
-
+        
 	    @for($i=1; $i<=count($products); $i++)
 				<figure tabindex="{{$i}}">
 					<!-- image -->					

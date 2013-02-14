@@ -61,9 +61,7 @@ class Categories_Controller extends Base_Controller {
 		$cat_option = Categorie::where_null('categorie_id')->lists('nomc','id');
 		         
 		if($id != null){
-			$cat= Categorie::find($id);		
-	
-
+			$cat= Categorie::find($id);
 			return View::make('categories.editcategorie')->with('categorie',$cat)->with('cat_option',$cat_option);
 		}
 		else {
@@ -154,6 +152,7 @@ class Categories_Controller extends Base_Controller {
 				        if (isset($newNomCategorie) && !empty($newNomCategorie)){
 					        //si bien rempli on le modifie dans la base de donnees
 							$cat->nomc = $newNomCategorie;
+							$cat->slug = Str::slug($newNomCategorie);
 							$cat->save();
 				        }
 						// modification de la catégorie mere
@@ -194,7 +193,8 @@ class Categories_Controller extends Base_Controller {
 						//ajouter dans la base de donnees le nouvelle categorie 
 						$new_cat = array (
 						'nomc' => Input::get('Categorie'),
-						'categorie_id' => $newcatMereID,			
+						'categorie_id' => $newcatMereID,
+						'slug' => Str::slug(Input::get('Categorie')),		
 						);
 		
 						if ($cat = Categorie::create($new_cat)){
