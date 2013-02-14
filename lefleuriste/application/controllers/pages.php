@@ -6,8 +6,12 @@ class Pages_Controller extends Base_Controller {
 
 public function get_accueil()
 	{
-		$saint = Saint::where('date','=',date('0000-m-d'))->get();	
-		return View::make('pages.accueil')->with('saint',$saint);
+		$saint = Saint::where('date','=',date('0000-m-d'))->get();
+		//si on a un résultat
+		if(!empty($saint)){
+			return View::make('pages.accueil')->with('saint',$saint);
+		}
+		return View::make('pages.accueil');
 	}	
 	
 public function get_catalogue()
