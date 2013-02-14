@@ -16,7 +16,6 @@ class Categories_Controller extends Base_Controller {
 	 * Récupération de toutes les catégories
 	 * @return une vue contenant les catégories
 	 */
-
 	public function get_categories($per_page=10) {
 
 		$categories = Categorie::order_by('categorie_id')->paginate($per_page); 
@@ -54,7 +53,6 @@ class Categories_Controller extends Base_Controller {
 	 * @param id l'identifiant de la catégorie à chercher dans la base de données
 	 * @return une vue contenant la catégorie trouvée ou pas sur la base de données
 	 */
-
 	public function get_modifierCat($id=null){            
 
 		
