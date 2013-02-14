@@ -247,11 +247,35 @@ class Categories_Controller extends Base_Controller {
 				//on récupère les filles
 				$catFilles = Categorie::where('categorie_id','=',$catEnCours->id)->get();
 				
-				//on supprime toutes les filles
-				foreach($catFilles as $cf){
-					$cf->delete();
+				//si on a des catégories filles
+				if(!empty($catFilles)){
+
+					//on supprime toutes les filles
+					foreach($catFilles as $cf){
+						//si on a des produits dans la catégorie fille
+						if($products = Categorie::find($cf->id)->products){
+							$directory = path('public').'images/';
+							//on parcourt tous les produits de la catégorie fille
+							foreach ($products as $p) {
+								//on supprime les images des produits de cette catégorie
+								File::delete($directory.$p->chemin);
+								File::delete($directory.'tab-'.$p->chemin);
+							}
+						}
+						$cf->delete();										
+					}
 				}
 				
+				//si on a des produits dans la catégorie mère
+			    if($products = Categorie::find($catEnCours->id)->products){
+					$directory = path('public').'images/';
+					//on parcourt tous les produits de la catégorie mère
+					foreach ($products as $p) {
+						//on supprime les images des produits de cette catégorie
+						File::delete($directory.$p->chemin);
+						File::delete($directory.'tab-'.$p->chemin);
+					}
+				}
 				//on supprime la mere
 				$catEnCours->delete();
 				
