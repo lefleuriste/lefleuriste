@@ -174,7 +174,7 @@ class Categories_Controller extends Base_Controller {
 							$nbCat = Categorie::where_null('categorie_id')->count();
 							if($nbCat>=4){
 								Session::flash('status_error','Nombre maximum de catégorie mère atteinte.');
-								return Redirect::back();;
+								return Redirect::back();
 							}
 							$newcatMereID=Null;
 						}
@@ -192,12 +192,26 @@ class Categories_Controller extends Base_Controller {
 						
 						//ajouter dans la base de donnees le nouvelle categorie 
 						$new_cat = array (
-						'nomc' => Input::get('Categorie'),
-						'categorie_id' => $newcatMereID,
-						'slug' => Str::slug(Input::get('Categorie')),		
+						  'nomc' => Input::get('Categorie'),
+						  'categorie_id' => $newcatMereID,
+						  'slug' => Str::slug(Input::get('Categorie')),		
 						);
 		
 						if ($cat = Categorie::create($new_cat)){
+							//si on ajoute une sous-catégorie et si une catégorie est une catégorie mère 
+							//on récupère les produits de la catégorie mère
+							if($newcatMereID != 'null'){
+								$products = Product::where('categorie_id', '=',$newcatMereID)->get();
+								
+								//s'il y a des produits dans la catégorie mère
+								if(!empty($products)){
+									//on met à jour les produits avec l'id de la nouvelle sous-catégorie
+									$prod_updated = DB::table('products')
+                                                    ->where('categorie_id', '=', $newcatMereID)
+                                                    ->update(array('categorie_id' => $cat->id));									
+								}
+							}
+
 							//on affiche un message de confirmation d'ajout puis on redirige
 							Session::flash('status_success','Catégorie ajoutée avec succès.');
 							return Redirect::to_action('categories/categories');
