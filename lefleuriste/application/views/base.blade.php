@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" type="image/png" href="{{URL::to('../public/img/favicon.ico')}}" />
+    <link rel="icon" type="image/png" href="{{URL::to('public/img/favicon.ico')}}" />
 
     <!-- Le styles -->
     {{ Asset::container('header')->styles() }}
